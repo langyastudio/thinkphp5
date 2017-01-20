@@ -1,0 +1,22 @@
+[class="current"] {
+  background-color: #1DB5FF !important;
+  border: 1px solid #88b7e0 !important;
+}
+
+[class="current prev"], [class="current next"] {
+  border: 1px solid #EDEFF0 !important;
+}
+
+.pagination {
+  margin: 0 auto;
+  display: table;
+}
+
+.pagination a, .pagination .current {
+  width: auto;
+  padding: 5px 11px 5px 11px !important;
+  font-size: 14px;
+  border: 1px solid #ddd;
+  text-align: center;
+  margin: 0 4px 0 4px;
+}

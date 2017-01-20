@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Navigator</title>
+</head>
+
+<body>
+
+<script>
+  //获取当前的浏览器信息
+  var sys = GetBrowserInfo();
+  //sys.browser得到浏览器的类型，sys.ver得到浏览器的版本
+  document.write(sys.browser + "：" + sys.ver);
+
+  function GetBrowserInfo() {
+    var ua = navigator.userAgent.toLowerCase();
+    var re = /(msie|firefox|chrome|opera|version).*?([\d.]+)/;
+    var m  = ua.match(re);
+
+    var Sys = {};
+    Sys.browser = m[1].replace(/version/, "safari");
+    Sys.ver = m[2];
+    return Sys;
+  }
+</script>
+
+</body>
+</html>

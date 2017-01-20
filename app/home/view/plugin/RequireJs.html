@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Require</title>
+
+	<!--加载requirejs脚本的script标签加入了data-main属性，这个属性指定的js将在加载完require.js后处理，
+		把require.config的配置加入到data-main后，就可以使每一个页面都使用这个配置，然后页面中就可以直接使用require来加载所有的短模块名。
+		但是通过data-main异步加载配置文件是很狗血的事，所以改为同步加载-->
+	<script src="/public/assets/require/require.min.js"></script>
+	<script src="/public/scripts/main.js"></script>
+</head>
+
+<body>
+<div id="divId">
+	<img class="image" src="/public/skins/imgviews/tibet-1.jpg" alt="图片1">
+</div>
+</body>
+
+<script type="text/javascript">
+	require(['viewer'], function () {
+		//不显示缩略图导航
+		$('.image').viewer({
+			navbar: 0
+		});
+	});
+	
+	require(['dateutil'], function (dateUtil) {
+		console.log( dateUtil.dateFormat("yyyy-MM-dd", new Date()) );
+	})
+</script>
+</html>

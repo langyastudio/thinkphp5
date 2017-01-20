@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>LazyLoad</title>
+
+  <!-- Scripts -->
+  <script src="/public/assets/jquery.min.js"></script>
+  <script src="/public/assets/jquery.lazyload/jquery.lazyload.min.js"></script>
+  <script src="/public/assets/imagesloaded/imagesloaded.pkgd.min.js"></script>
+</head>
+
+<body>
+
+<!-- Address of the image must be put into data-original attribute.
+      Give lazy loaded images a specific class.
+      This way you can easily control which images plugin is binded to.-->
+<div id="imgLoad">
+  <div>
+    <img class="lazy" data-original="/Public/skins/headerpics/s1.jpg" width="765" height="574">
+  </div>
+  <div>
+    <img class="lazy" data-original="/Public/skins/headerpics/s2.jpg" width="765" height="574">
+  </div>
+  <div>
+    <img class="lazy" data-original="/Public/skins/headerpics/s3.png" width="765" height="574">
+  </div>
+  <div>
+    <img class="lazy" data-original="/Public/skins/headerpics/s2.jpg" width="765" height="574">
+  </div>
+  <div>
+    <img class="lazy" data-original="/Public/skins/headerpics/s1.jpg" width="765" height="574">
+  </div>
+  <div>
+    <img class="lazy" data-original="/Public/skins/headerpics/s3.png" width="765" height="574">
+  </div>
+  <div>
+    <img class="lazy" data-original="/Public/skins/headerpics/s2.jpg" width="765" height="574">
+  </div>
+  <div>
+    <img class="lazy" data-original="/Public/skins/headerpics/s1.jpg" width="765" height="574">
+  </div>
+  <div>
+    <img class="lazy" data-original="/Public/skins/headerpics/s3.png" width="765" height="574">
+  </div>
+</div>
+
+<!--https://github.com/tuupola/jquery_lazyload-->
+<script>
+  $("img.lazy").lazyload({
+    effect: "fadeIn",
+    skip_invisible: true,
+    threshold: 200
+  });
+
+//检测图片是否加载
+$("#imgLoad").imagesLoaded()
+        .progress(function (instance, image) {
+          var result = image.isLoaded ? 'loaded' : 'broken';
+          console.log('image is ' + result + ' for ' + image.img.src);
+        })
+        .always(function (instance) {
+          console.log('all images loaded');
+        })
+        .done(function (instance) {
+          console.log('all images successfully loaded');
+        })
+        .fail(function () {
+          console.log('all images loaded, at least one is broken');
+        })
+</script>
+
+</body>
+</html>

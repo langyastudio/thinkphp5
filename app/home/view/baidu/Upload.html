@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name='viewport' content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no'>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <title>Upload</title>
+
+    <link type="text/css" rel="stylesheet" href="/public/assets/font.awesome/css/font-awesome.min.css"/>
+    <link type="text/css" rel="stylesheet" href="/public/assets/bootstrap/css/bootstrap.min.css"/>
+    <link type="text/css" rel="stylesheet" href="/public/assets/bootstrap/css/bootstrap-theme.min.css"/>
+    <link type="text/css" rel="stylesheet" href="/public/assets/webuploader/webuploader.css">
+
+    <style type="text/css">
+        #picker {
+            margin : 0 auto;
+        }
+    </style>
+</head>
+
+<body>
+<div id="uploader" class="col-md-12">
+    <div id="picker" class="row">选择文件</div>
+</div>
+</body>
+</html>
+
+<script type="text/javascript" src="/public/assets/jquery.min.js"></script>
+<script type="text/javascript" src="/public/assets/webuploader/webuploader.min.js"></script>
+<script>
+    $(function () {
+        var uploader = WebUploader.create({
+            // swf文件路径
+            swf      : '/Public/assets/webuploader/Uploader.swf',
+            // 文件接收服务端。
+            server   : 'http://webuploader.duapp.com/server/fileupload.php',
+            // 选择文件的按钮。可选。
+            // 内部根据当前运行是创建，可能是input元素，也可能是flash.
+            pick     : {
+                label: '<i class="fa fa-cloud-upload"></i>&nbsp;选择文件',
+                id   : '#picker'
+            },
+            chunked  : true, //开启分片
+            timeout  : 1000 * 3600 * 1, //上传请求超时时间
+            chunkSize: 1024 * 1024 * 1, //每片大小（受linux系统限制，单个上传的文件的体积得满足：filesize÷chunkSize<31998M）
+            duplicate: true,	//去重
+            threads  : 1,	//并发数(Todo：受api限制，暂时只能是1，不能超过10!!!!)
+
+            auto               : false, //开始上传 在 filesQueued事件 中触发上传
+            fileNumLimit       : 20, //一次做多上传的文件个数
+            fileSizeLimit      : 1024 * 1024 * 1024 * 100, //总大小不能超过
+            fileSingleSizeLimit: 1024 * 1024 * 1024 * 50, //单个文件不能超过
+
+            resize          : false, // 不压缩image, 默认如果是jpeg，文件上传前会压缩一把再上传！
+            disableGlobalDnd: true,    // 禁掉全局的拖拽功能。这样不会出现图片拖进页面的时候，把图片打开
+            compress        : false,//图片在上传前不进行压缩
+        });
+    });
+</script>

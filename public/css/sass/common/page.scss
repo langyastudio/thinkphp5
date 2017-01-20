@@ -1,0 +1,24 @@
+@import "../hkdefine";
+
+[class="current"] {
+  background-color: $blueLight !important;
+  border: 1px solid $blueWhite !important;
+}
+
+[class="current prev"], [class="current next"] {
+  border: 1px solid $grayLight !important;
+}
+
+.pagination {
+  margin: 0 auto;
+  display: table;
+}
+
+.pagination a, .pagination .current {
+  width: auto;
+  padding: 5px 11px 5px 11px !important;
+  font-size: 14px;
+  border: 1px solid $bdcolor;
+  text-align: center;
+  margin: 0 4px 0 4px;
+}

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+
+<body>
+  <div id="div1"><label>标签</label></div>
+</body>
+
+<!--Document-->
+<script type="text/javascript">
+  document.title = 'Test';
+
+  var div1Obj = document.getElementById('div1');
+  div1Obj.firstElementChild.innerHTML = '修改后的标签';
+
+  var aObj = document.createElement('a');
+  aObj.href = 'https://baidu.com';
+  aObj.appendChild(document.createTextNode('衔接地址'));
+
+  div1Obj.appendChild(aObj);
+
+  <!--定时变色-->
+  //  var n = 0;
+  //  function ChangeColor() {
+  //    var colorArr = new Array('#FFFFFF', '#000000', '#FF00000', '#00FF00', '#0000FF', '#FFFF00');
+  //    if(n == colorArr.length){
+  //      n = 0;
+  //    }
+  //
+  //    document.bgColor = colorArr[n];
+  //    document.fgColor = colorArr[++n];
+  //    setTimeout('ChangeColor()', 1000);
+  //  }
+  //  ChangeColor();
+</script>
+
+</html>

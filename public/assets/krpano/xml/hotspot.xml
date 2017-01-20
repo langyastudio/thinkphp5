@@ -1,0 +1,76 @@
+<krpano>
+    <!-- hotspot.xml 1.19 -->
+
+    <!-- tooltip -->
+    <include url="%SWFPATH%/xml/tooltip.xml"/>
+
+    <!--显示热点动画
+        %1 小图的宽度
+        %2 高度
+        %3 帧率
+    -->
+    <action name="do_crop_animation">
+        <!-- 为热点注册属性 -->
+        registerattribute(xframes, calc((imagewidth / %1) BOR 0));
+        registerattribute(yframes, calc((imageheight / %2) BOR 0));
+        registerattribute(frames, calc(xframes * yframes));
+        registerattribute(frame, 0);
+
+        set(crop, '0|0|%1|%2');
+
+        setinterval(calc('crop_anim_' + name), calc(1.0 / %3),
+        if(loaded,
+        inc(frame);
+        if(frame GE frames, if(onlastframe !== null, onlastframe() ); set(frame,0); );
+        mod(xpos, frame, xframes);
+        div(ypos, frame, xframes);
+        Math.floor(ypos);
+        mul(xpos, %1);
+        mul(ypos, %2);
+        calc(crop, xpos + '|' + ypos + '|%1|%2');
+        ,
+        clearinterval(calc('crop_anim_' + name));
+        );
+        );
+    </action>
+
+    <!--添加热点
+        %1 - 名称
+        %2 - ath
+        %3 - atv
+        %4 - 图标
+        %5 - onclick 事件
+    -->
+    <action name="hotspot_add">
+        <!--when the content of a variable should be used - then the get() action must be used to resolve the variable!-->
+        txtadd(hs, 'hotspot_', %1);
+
+        if(hotspot[get(hs)],
+            trace('hotspot_add - there is already a hs!'-);
+        ,
+        addhotspot(get(hs));
+
+        set(hotspot[get(hs)].name, get(hs));
+
+        if('%4' != null,
+        set(hotspot[get(hs)].url, %4),
+        set(hotspot[get(hs)].url, '%SWFPATH%/xml/skin/target.png');
+        );
+
+        set(hotspot[get(hs)].onloaded, do_crop_animation(128,128, 60));
+        set(hotspot[get(hs)].zoom, true);
+        set(hotspot[get(hs)].scale, 0.20);
+        set(hotspot[get(hs)].keep, false);
+
+        <!-- 使用loadstyle，不能使用set Action -->
+        hotspot[get(hs)].loadstyle(tooltip);
+        set(hotspot[get(hs)].distorted, true);
+        set(hotspot[get(hs)].tooltip, '%1');
+
+        set(hotspot[get(hs)].ath, %2);
+        set(hotspot[get(hs)].atv, %3);
+        set(hotspot[get(hs)].onclick, %5);
+        );
+    </action>
+
+</krpano>

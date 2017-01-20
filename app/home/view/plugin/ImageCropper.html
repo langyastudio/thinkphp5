@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="x-ua-compatible" content="ie=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<title>Cropper</title>
+
+	<link rel="stylesheet" href="/public/assets/bootstrap/css/bootstrap.css">
+	<link rel="stylesheet" href="/public/assets/cropper/cropper.css">
+</head>
+
+<body>
+
+<div class="container">
+	<h1 class="page-header">Customize preview for Cropper</h1>
+	<div class="row">
+		<div class="col-sm-6">
+			<h3 class="page-header">Cropper</h3>
+			<div>
+				<img class="img-responsive" id="image" src="/public/skins/imgviews/cropper.jpeg" alt="Picture">
+			</div>
+		</div>
+		<div class="col-sm-6">
+			<h3 class="page-header">Preview</h3>
+			<div class="row">
+				<div class="col-sm-6">
+					<div class="preview"></div>
+				</div>
+				<div class="col-sm-4">
+					<div class="preview"></div>
+				</div>
+				<div class="col-sm-2">
+					<div class="preview"></div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div>
+		<button class="btn-default btn-primary" onclick="SavePic()" style="margin-top: 20px;">保存</button>
+	</div>
+</div>
+
+<!-- Scripts -->
+<script src="/public/assets/jquery.min.js"></script>
+<script src="/public/assets/bootstrap/js/bootstrap.min.js"></script>
+<script src="/public/assets/cropper/cropper.js"></script>
+<script>
+	$(function () {
+		var $previews = $('.preview');
+
+		$('#image').cropper({
+			aspectRatio     : 1,
+			viewMode        : 1,
+			zoomOnWheel     : 0,
+			guides          : 0,
+			center          : 0,
+			preview         : '.preview',
+			cropBoxResizable: 1,
+
+			build: function (e) {
+				var $clone = $(this).clone();
+
+				$clone.css({
+					display         : 'block',
+					width           : '100%',
+				});
+
+				$previews.css({
+					width: '100%',
+					overflow: 'hidden'
+				}).html($clone);
+			},
+
+			crop: function (e) {
+				var imageData = $(this).cropper('getImageData');
+				var previewAspectRatio = e.width / e.height;
+
+				$previews.each(function () {
+					var $preview = $(this);
+					var previewWidth = $preview.width();
+					var previewHeight = previewWidth / previewAspectRatio;
+					var imageScaledRatio = e.width / previewWidth;
+
+					$preview.height(previewHeight).find('img').css({
+						width: imageData.naturalWidth / imageScaledRatio,
+						height: imageData.naturalHeight / imageScaledRatio,
+						marginLeft: -e.x / imageScaledRatio,
+						marginTop: -e.y / imageScaledRatio
+					});
+				});
+			}
+		});
+	});
+
+	function SavePic() {
+		var imgData = $("#image").cropper("getData");
+		console.log(imgData);
+	}
+
+</script>
+</body>
+</html>

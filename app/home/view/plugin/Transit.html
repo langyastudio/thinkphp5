@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Transit</title>
+
+  <!-- Scripts -->
+  <script src="/public/assets/jquery.min.js"></script>
+  <script src="/public/assets/jquery.transit.js"></script>
+</head>
+
+<body>
+  <img id="img1" class="lazy" src="/public/skins/headerpics/s1.jpg" width="765" height="574">
+  <img id="img2" class="lazy" src="/public/skins/headerpics/s2.jpg" width="765" height="574">
+  <img id="img3" class="lazy" src="/public/skins/headerpics/s3.png" width="765" height="574">
+
+<script>
+  $(function () {
+
+    /* 1.0 Transformations
+     * x (px)
+     * y (px)
+     * translate (x, y) 平移
+     *
+     * rotate (deg)
+     * rotateX (deg)
+     * rotateY (deg)
+     * rotate3d (x, y, z, deg) 旋转
+     *
+     * scale (x, [y]) 缩放
+     *
+     * perspective (px) 透视
+     *
+     * skewX (deg) 倾斜
+     * skewY (deg)
+     *
+     */
+    $("#img1").click(function () {
+      $("#img1").transition({
+        x: '60px',
+        y: '60px',
+        rotate: '30deg',
+        scale: [1.05, 1.05]
+      });
+    });
+
+    /*
+     * 2.0 Transition any CSS property.
+     *
+     * 3.0 Simply provide a 3rd parameter to $.transition:
+     * linear ease in out in-out snap easeOutCubic easeInOutCubic easeInCirc
+     * easeOutCirc easeInOutCirc easeInExpo easeOutExpo easeInOutExpo easeInQuad easeOutQuad easeInOutQuad easeInQuart
+     * easeOutQuart easeInOutQuart easeInQuint easeOutQuint easeInOutQuint easeInSine
+     * easeOutSine easeInOutSine easeInBack easeOutBack easeInOutBack
+     */
+    $("#img2").click(function () {
+      $("#img2").transition({
+        marginTop: '60px',
+        delay: 500,
+        easing: 'ease',
+        duration: 200
+      });
+    });
+
+    //Relative values
+    $("#img3").click(function () {
+      $("#img3").transition({
+        rotate: '+=30deg',
+        x: '+=10'
+      });
+    });
+  });
+
+</script>
+</body>
+</html>

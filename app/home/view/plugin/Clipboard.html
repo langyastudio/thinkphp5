@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Clipboard</title>
+
+  <script type="text/javascript" src="/public/assets/jquery.min.js"></script>
+  <script type="text/javascript" src="/public/assets/clipboard/clipboard.min.js"></script>
+</head>
+
+<body>
+
+<input class="urltxt" type="text" value="http://192.168.1.3" readonly="readonly">
+<input class="pwdtxt" type="text" value="asdh" readonly="readonly">
+<button id="btn" name="copybtn">复制</button>
+
+<script>
+  $(function () {
+    var options = {
+      copytxtfun: function () {
+        return $(".urltxt").val() + ' ' + $(".pwdtxt").val();
+      },
+      id: "btn"
+    };
+    $("#btn").bind("click", options, clipCopy);
+  });
+
+  function clipCopy(event) {
+    var options = event.data;
+    var tcopy   = options.copytxtfun();
+    var id      = options.id ? options.id : "btn";
+
+    var isIE8 = navigator.appName == "Microsoft Internet Explorer" && navigator.appVersion.split(";")[1].replace(/[ ]/g, "") == "MSIE8.0";
+    if (isIE8) {
+      window.clipboardData.setData("Text", tcopy);//IE8的复制到剪切板
+    } else {
+      var clipboard = new Clipboard(
+              '#' + id,
+              {
+                text: function (trigger) {
+                  return tcopy;
+                }
+              });
+
+      clipboard.on('success', function(e) {
+      });
+
+      clipboard.on('error', function(e) {
+      });
+
+      //clipboard.destroy();
+    }
+  }
+</script>
+</body>
+</html>

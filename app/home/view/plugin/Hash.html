@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Hash</title>
+
+  <!-- Scripts -->
+  <script src="/public/assets/jquery.min.js"></script>
+  <script src="/public/assets/jquery.hash.js"></script>
+</head>
+<body>
+
+<script type="text/javascript">
+  //url hash赋值与取值
+  $.hash().set("key", "val").location();
+  console.log($.hash().get("key"));
+
+</script>
+
+</body>
+</html>

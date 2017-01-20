@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>按钮分享</title>
+</head>
+
+<body>
+
+<!--按钮分享-->
+<!--http://share.baidu.com/code-->
+<div>
+  <!--class＝"bdsharebuttonbox" 部分为dom选择器，请勿改动。-->
+  <div class="bdsharebuttonbox">
+    <!-- 此处添加展示按钮 -->
+    <a href="#" class="bds_weixin" data-cmd="weixin" title="分享到微信"></a>
+    <a href="#" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a>
+    <a href="#" class="bds_qzone" data-cmd="qzone" title="分享到QQ空间"></a>
+    <a href="#" class="bds_tqq" data-cmd="tqq" title="分享到腾讯微博"></a>
+    <a href="#" class="bds_renren" data-cmd="renren" title="分享到人人"></a>
+    <a href="#" class="bds_more" data-cmd="more"></a>
+  </div>
+</div>
+
+<script>
+  //------------------------------------------------ JS 百度分享 -------------------------------------------------------//
+  //断网后，无法使用!!!
+
+  //cmd为分享目标id，config为当前设置
+  function ConfigShare(cmd, config) {
+    config.bdText = '1080p的文件';
+    config.bdUrl  = 'http://192.168.1.3:88/Detail/Video?fid=14eba0f4-34b7-41ac-a239-dad8c312ca88';
+
+    return config;
+  }
+
+  //此处添加分享具体设置
+  window._bd_share_config = {
+    //此处放置通用设置
+    "common": {
+      bdSnsKey: {},
+      bdDesc: "",  //分享的摘要
+      bdText: "",  //分享的标题
+      bdUrl: "",  //分享的Url地址
+      bdPic: "",  //分享的图片
+      onBeforeClick: ConfigShare, //调用前，更改配置
+      bdMini: "2", //下拉浮层中分享按钮的列数
+      bdMiniList: false, //自定义下拉浮层中的分享按钮类型和排列顺序
+      bdStyle: "1"
+    },
+    //此处放置分享按钮设置
+    "share": {
+      bdSize: "24" //16 24 32
+    }
+  };
+
+  //以下为js加载部分
+  with (document)0[(getElementsByTagName('head')[0] || body).appendChild(createElement('script')).src = 'http://bdimg.share.baidu.com/static/api/js/share.js?cdnversion=' + ~(-new Date() / 36e5)];
+</script>
+
+</body>
+</html>

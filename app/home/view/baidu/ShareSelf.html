@@ -1,0 +1,157 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width,user-scalable=no" name="viewport">
+  <title>自定义百度分享URL和图标样式</title>
+</head>
+
+<body>
+
+<!--覆盖原来的css定义-->
+<style type="text/css">
+  .bdsharebuttonbox li {
+    color: #494949;
+    font: 12px Arial,"微软雅黑";
+    margin: 0 auto;
+  }
+
+  .bdsharebuttonbox ul, ol, li {
+    list-style-type: none;
+    vertical-align: 0;
+  }
+
+  .bdsharebuttonbox a {
+    outline-style: none;
+    color: #494949;
+    text-decoration: none;
+  }
+
+  .gb_resLay {
+    background: #FFFFFF;
+    height: 170px;
+    width: 100%;
+    max-width: 800px;
+    margin: 0 auto;
+  }
+
+  .gb_resItms {
+    margin: 0px 4%;
+  }
+
+  .gb_resItms li {
+    text-align: center;
+    float: left;
+    width: 16.66%;
+    padding-bottom: 15px;
+  }
+
+  @media only screen and (max-width: 470px) {
+    .gb_resItms li {
+      width: 33.333%;
+    }
+
+    .gb_resLay {
+      height: 290px;
+    }
+  }
+
+  .bdsharebuttonbox a {
+    width: 60px !important;
+    height: 60px !important;
+    margin: 0 auto 10px !important;
+    float: none !important;
+    padding: 0 !important;
+    display: block;
+  }
+
+  .bdsharebuttonbox a img {
+    border: 0;
+    width: 60px;
+    height: 60px;
+  }
+
+  .bdsharebuttonbox .bds_tsina {
+    background: url(/Public/skins/bdshares/bd_tsina.png) no-repeat center center/60px 60px;
+  }
+
+  .bdsharebuttonbox .bds_qzone {
+    background: url(/Public/skins/bdshares/bd_qzone.png) no-repeat center center/60px 60px;
+  }
+
+  .bdsharebuttonbox .bds_tqq {
+    background: url(/Public/skins/bdshares/bd_tqq.png) no-repeat center center/60px 60px;
+  }
+
+  .bdsharebuttonbox .bds_weixin {
+    background: url(/Public/skins/bdshares/bd_weixin.png) no-repeat center center/60px 60px;
+  }
+
+  .bdsharebuttonbox .bds_sqq {
+    background: url(/Public/skins/bdshares/bd_sqq.png) no-repeat center center/60px 60px;
+  }
+
+  .bdsharebuttonbox .bds_renren {
+    background: url(/Public/skins/bdshares/bd_renren.png) no-repeat center center/60px 60px;
+  }
+
+  .bd_weixin_popup .bd_weixin_popup_foot {
+    position: relative;
+    top: -12px;
+  }
+
+</style>
+
+<div class="gb_resLay">
+  <!--class＝"bdsharebuttonbox" 部分为dom选择器，请勿改动。-->
+  <div class="bdsharebuttonbox">
+    <ul class="gb_resItms">
+      <li><a title="分享到微信" href="#" class="bds_weixin" data-cmd="weixin"></a>微信好友</li>
+      <li><a title="分享到QQ好友" href="#" class="bds_tqq" data-cmd="sqq"></a>QQ好友</li>
+      <li><a title="分享到QQ空间" href="#" class="bds_qzone" data-cmd="qzone"></a>QQ空间</li>
+      <li><a title="分享到新浪微博" href="#" class="bds_tsina" data-cmd="tsina"></a>新浪微博</li>
+      <li><a title="分享到腾讯微博" href="#" class="bds_sqq" data-cmd="tqq"></a>腾讯微博</li>
+      <li><a title="分享到人人网" href="#" class="bds_renren" data-cmd="renren"></a>人人网</li>
+    </ul>
+  </div>
+</div>
+
+<script language="javascript" src="/public/assets/jquery.min.js"></script>
+<script type="text/javascript">
+  //------------------------------------------------ JS 百度分享 -------------------------------------------------------//
+  //断网后，无法使用!!!
+
+  //cmd为分享目标id，config为当前设置
+  function ConfigShare(cmd, config) {
+    config.bdText = '1080p的文件';
+    config.bdUrl  = 'http://192.168.1.3:88/Detail/Video?fid=14eba0f4-34b7-41ac-a239-dad8c312ca88';
+
+    return config;
+  }
+
+  //此处添加分享具体设置
+  window._bd_share_config = {
+    //此处放置通用设置
+    "common": {
+      bdSnsKey: {},
+      bdDesc: "",  //分享的摘要
+      bdText: "",  //分享的标题
+      bdUrl: "",  //分享的Url地址
+      bdPic: "",  //分享的图片
+      onBeforeClick: ConfigShare, //调用前，更改配置
+      bdMini: "2", //下拉浮层中分享按钮的列数
+      bdMiniList: false, //自定义下拉浮层中的分享按钮类型和排列顺序
+      bdStyle: "1"
+    },
+    //此处放置分享按钮设置
+    "share": {
+      bdSize: "24" //16 24 32
+    }
+  };
+
+  //插件的JS加载部分
+  with(document)0[(getElementsByTagName('head')[0] || body).appendChild(createElement('script')).src = 'http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='
+          + ~(-new Date() / 36e5)];
+</script>
+</body>
+</html>

@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="x-ua-compatible" content="ie=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>GeoCoder</title>
+
+	<link rel="stylesheet" href="/public/assets/bootstrap/css/bootstrap.min.css"/>
+	<link rel="stylesheet" href="/public/assets/bootstrap/css/bootstrap-theme.min.css"/>
+
+	<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+	<!--[if lt IE 9]>
+	<script type="text/javascript" src="/public/assets/html5shiv.min.js"></script>
+	<script type="text/javascript" src="/public/assets/respond.min.js"></script>
+	<![endif]-->
+
+	<!--地图-->
+	<link rel="stylesheet" href="http://cache.amap.com/lbs/static/main1119.css"/>
+	<link rel="stylesheet" href="/public/css/css/amap/geocoder.css" />
+	<link rel="stylesheet" href="/public/assets/font.awesome/css/font-awesome.min.css" />
+
+	<script type="text/javascript" src="/public/assets/jquery.min.js"></script>
+	<script type="text/javascript" src="/public/assets/bootstrap/js/bootstrap.js"></script>
+	<script type="text/javascript" src="/public/assets/jquery.Hz2Py.min.js"></script>
+	<script type="text/javascript" src="/public/assets/slimScroll/jquery.slimscroll.min.js"></script>
+
+	<!--地图-->
+	<script type="text/javascript"
+			src="http://webapi.amap.com/maps?v=1.3&key=2b113e23822fb0c9d3ca7cc1b225deb1&plugin=AMap.DistrictSearch"></script>
+	<script type="text/javascript"
+			src="http://webapi.amap.com/maps?v=1.3&key=2b113e23822fb0c9d3ca7cc1b225deb1&plugin=AMap.CitySearch"></script>
+</head>
+
+<body>
+<div class="container">
+	<aside id="mainContent">
+		<div class="row">
+			<div class="col-md-12">
+				<form class="search-form">
+					<div class="col-md-6 input-group">
+						<div class="input-group-btn">
+							<!--行政区按钮-->
+							<button id="districtBtnId" type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+								<label code="100000" id="curDistrict">全国</label>
+								<span class="fa fa-caret-down"></span>
+							</button>
+							<!--行政区列表-->
+							<div class="dropdown-menu">
+								<div id="districtDropdownId">
+									<div class="box-header">当前城市：
+										<a id="curCity" code="" href="javascript:void(0)">济南市</a>
+										<div id="commonCityId">
+										</div>
+									</div>
+									<div class="box-body" id="cityListContainer">
+										<div id="pyList" class="btn-group"></div>
+										<div id="cityList">
+											<table>
+											</table>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<input type="text"  name="search" id="searchInput" class="form-control">
+						<div class="input-group-btn">
+							<button id="btnSearchId" type="submit" name="submit" class="btn btn-warning">
+								<i class="fa fa-search"></i>
+							</button>
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-md-12">
+				<div id="searchResult" class="box-body">
+					<div class="nav-tabs-custom">
+						<ul class="nav nav-tabs pull-right">
+							<li class="">
+								<a href="#searchResultMap" data-toggle="tab" aria-expanded="false">地图</a>
+							</li>
+							<li class="active">
+								<a href="#searchResultContainer" data-toggle="tab" aria-expanded="true">列表</a>
+							</li>
+						</ul>
+						<div class="tab-content">
+							<!--地图-->
+							<div class="tab-pane" id="searchResultMap">
+								<div id="container" class="amap-container">
+									<div class="btn-group ckLayers" data-toggle="buttons">
+										<label class="btn btn-default active" onclick="SetDefault();">
+											<input type="radio" name="options" id="option1" autocomplete="off" checked>
+											地图
+										</label>
+										<label class="btn btn-default" onclick="Set3D();">
+											<input type="radio" name="options" id="option2" autocomplete="off"> 三维
+										</label>
+										<label class="btn btn-default" onclick="ShowSatellite();">
+											<input type="radio" name="options" id="option3" autocomplete="off"> 影像
+										</label>
+									</div>
+								</div>
+							</div>
+							<!--列表-->
+							<div class="tab-pane active" id="searchResultContainer">
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</aside>
+</div>
+
+{literal}
+<script>
+	var _map; //地图
+	var _buildingsLayer;//三维
+	var _satelliteLayer;//卫星
+	var _defaultLayer;//默认地图
+	var _commonCity = [
+		{name: '全国', code: '100000'},
+		{name: '北京', code: '110000'},
+		{name: '济南', code: '370100'},
+		{name: '上海', code: '310000'},
+		{name: '广州', code: '440100'},
+		{name: '深圳', code: '440300'},
+		{name: '成都', code: '510100'},
+		{name: '沈阳', code: '210100'},
+		{name: '苏州', code: '320500'},
+		{name: '郑州', code: '410100'},
+		{name: '天津', code: '120000'},
+		{name: '重庆', code: '500000'},
+		{name: '武汉', code: '420100'},
+		{name: '杭州', code: '330100'},
+		{name: '西安', code: '610100'},
+		{name: '重庆', code: '500000'},
+		{name: '南京', code: '320100'}];
+
+	$(function () {
+		InitMap();
+		ShowCityInfo();
+		InitDistrictList();
+
+		//测试
+		var resArr = [
+			{
+				fid:'dfasdfasdf',
+				type:'1',
+				name: '第一个文件',
+				latitude: 36.78278473,
+				longitude: 117.02496707
+			},
+			{
+				fid:'dfasdfasdf',
+				type:'1',
+				name: '第二个文件',
+				latitude: 36.88278473,
+				longitude: 117.02496707
+			},
+			{
+				fid:'dfasdfasdf',
+				type:'1',
+				name: '第三个文件',
+				latitude: 36.88278473,
+				longitude: 117.02496707
+			}
+		];
+		AddMarkers(resArr);
+	});
+
+	//初始化Map
+	function InitMap() {
+		_defaultLayer   = new AMap.TileLayer({textIndex: 15});
+		_satelliteLayer = new AMap.TileLayer.Satellite({
+			zIndex: 10
+		});
+		_buildingsLayer = new AMap.Buildings();
+
+		_map            = new AMap.Map('container', {
+			resizeEnable: true,
+			zoom        : 13,
+			layers      : [
+				_defaultLayer,//默认图层
+				_satelliteLayer,//影像图层
+				_buildingsLayer//3D建筑图层
+			]
+		});
+		_satelliteLayer.hide();
+		_buildingsLayer.hide();
+
+		//添加ToolBar
+		_map.plugin(["AMap.ToolBar"], function () {
+			_map.addControl(new AMap.ToolBar());
+		});
+		//添加Scale
+		_map.plugin(["AMap.Scale"], function () {
+			_map.addControl(new AMap.Scale());
+		});
+		//添加OverView
+		_map.plugin(["AMap.OverView"], function () {
+			_map.addControl(new AMap.OverView({isOpen:true}));
+		});
+	}
+
+	//初始化行政区号列表
+	function InitDistrictList() {
+		AMap.service('AMap.DistrictSearch', function () {
+
+			//增加默认行政区号
+			for (var i = 0; i < _commonCity.length; i++) {
+				var cityItem = $('<a code=' + _commonCity[i].code + ' href="javascript:void(0)">' + _commonCity[i].name + '</a>');
+				$('#commonCityId').append(cityItem)
+			}
+
+			//高德行政区划查询
+			var district = new AMap.DistrictSearch({
+				subdistrict: 1   //返回下一级行政区
+			});
+			var dictrctObj = {};
+			var excepDistrict = ['110000', '500000', '310000', '120000', '710000'];
+			district.search("中国", function (status, result) {
+				var districtData = result.districtList[0];
+
+				//获取列表
+				$.each(districtData.districtList, function (index, obj) {
+					var py = toPinyin(obj.name).substring(0, 1);
+					if (obj.name.indexOf('重庆') >= 0) {
+						py = "C";
+					}
+					if (excepDistrict.indexOf(obj.adcode) < 0) {
+						if (!dictrctObj[py]) {
+							dictrctObj[py] = [obj];
+						} else {
+							dictrctObj[py].push(obj);
+						}
+					}
+				});
+
+				//分散到拼音字母中
+				var pyArray = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"];
+				var mbtnG = $('<div class="zm-group">');
+				for (var i = 0; i < pyArray.length; i++) {
+					if (dictrctObj[pyArray[i]]) {
+						var mbtn = $('<a href="javascript:void(0)" class="zm">' + pyArray[i] + '</a>');
+						$(mbtnG).append(mbtn);
+						$(mbtn).unbind('click').bind('click', function () {
+							$("#cityList").slimScroll({
+								scrollBy: $('[c="' + $(this).text() + '"]').position().top
+							});
+						});
+
+						$.each(dictrctObj[pyArray[i]], function (idex, obj) {
+							$("#cityList table").append($(' <tr><td class="province" c=' + pyArray[i] + ' code=' + obj.adcode + '>' + obj.name + '</td><td class="city" style="width: 300px" ></td></tr>'));
+
+							//递归市级数据
+							district.search(obj.adcode, function (cstatus, cresult) {
+								var cityData = cresult.districtList[0];
+
+								$.each(cityData.districtList, function (index, obj2) {
+									var cityItem = $('<a center=' + JSON.stringify(obj2.center) + ' code=' + obj2.adcode + ' href="javascript:void(0)">' + obj2.name + '</a>');
+									$("#cityList table").find('[code="' + obj.adcode + '"]').next().append(cityItem);
+									$(cityItem).click(function () {
+										$("#curDistrict").text($(this).text().substr(0, 3));
+										$("#curDistrict").attr("code", obj2.adcode);
+										LocateCity(obj2.name);
+										$("#curDistrict").parent().dropdown('toggle')
+									})
+								});
+							})
+						})
+					}
+				}
+
+				$(".dropdown-menu").unbind("click").bind("click", function () {
+					return false;
+				});
+
+				$("#commonCityId a").unbind("click").bind("click", function () {
+					$("#curDistrict").text($(this).text().substr(0, 3));
+					$("#curDistrict").attr("code", $(this).attr("code"));
+					if ($(this).text() == "全国") {
+						var dd = new AMap.LngLat(116.30946, 39.937629);
+						_map.setZoomAndCenter(3, dd);
+					} else {
+						LocateCity($(this).text());
+					}
+
+					$("#curDistrict").parent().dropdown('toggle')
+				});
+
+				$("#cityListContainer").append(mbtnG);
+				$("#cityList").slimScroll({
+					height: 200,
+					start: "top"
+				});
+			})
+		})
+	}
+
+	//获取用户所在城市信息
+	function ShowCityInfo() {
+		//实例化城市查询类
+		var citysearch = new AMap.CitySearch();
+
+		//自动获取用户IP，返回当前城市
+		citysearch.getLocalCity(function (status, result) {
+			if (status === 'complete' && result.info === 'OK') {
+				if (result && result.city && result.bounds) {
+					$("#curCity").html(result.city);
+					$("#curCity").attr('code', result.adcode);
+
+					$("#curDistrict").text(result.city.substr(0, 3));
+					$("#curDistrict").attr("code", result.adcode);
+
+					//地图显示当前城市
+					_map.setCity(result.city);
+					_map.setBounds(result.bounds);
+				}
+			}
+		});
+	}
+
+	//设置城市
+	function LocateCity(cityName) {
+		_map.setCity(cityName);
+	}
+
+	//默认地图
+	function SetDefault() {
+		_defaultLayer.show();
+		_buildingsLayer.hide();
+		_satelliteLayer.hide();
+	}
+
+	//3D地图
+	function Set3D() {
+		if (document.createElement('canvas') && document.createElement('canvas').getContext &&
+			document.createElement('canvas').getContext('2d')) {
+			_defaultLayer.show();
+			_buildingsLayer.show();
+			_satelliteLayer.hide();
+		} else {
+			Hacfin.Common.ShowError("对不起，运行三维地图需要浏览器支持HTML5！");
+		}
+	}
+
+	//卫星地图
+	function ShowSatellite() {
+		_satelliteLayer.show();
+		_defaultLayer.hide();
+		_buildingsLayer.hide();
+	}
+
+	//添加地图标注
+	function AddMarkers(result) {
+		// 清除地图覆盖物
+		_map.clearMap();
+
+		var markers = [];
+		var maxRect = {minlng: 90, minlat: 180, maxlng: 0, maxlat: 0};
+		$.each(result, function (mIndex, mObj) {
+
+				//是否有相同位置
+				var hasSamePosition = false;
+				for (var i = 0; i < markers.length; i++) {
+					var p   = markers[i].getPosition();
+					var lat = parseFloat(mObj.latitude).toFixed(6);
+					var lng = parseFloat(mObj.longitude).toFixed(6);
+					if (p.getLng() == lng && p.getLat() == lat) {
+						hasSamePosition = true;
+						var dd          = {
+							id   : mObj.fid,
+							type : mObj.type,
+							index: mIndex + 1,
+							name : mObj.name
+						};
+						var extData     = markers[i].getExtData();
+						extData.push(dd);
+						markers[i].setExtData(extData);
+
+						//添加Label
+						markers[i].setLabel({
+							offset : new AMap.Pixel(20, 0),
+							content: "该位置有" + extData.length + "个文件"
+						});
+						break;
+					}
+				}
+				if (hasSamePosition) {
+					return;
+				}
+
+				//增加一个新位置
+				var mMarker = new AMap.Marker({
+					map      : _map,
+					position : [mObj.longitude, mObj.latitude],
+					draggable: true,
+					icon     : "http://webapi.amap.com/theme/v1.3/markers/n/mark_b" + (mIndex+1) +".png",
+					zIndex   : 999 - mIndex, //地图是101!!!!
+					offset	 : new AMap.Pixel(-12, -36),
+					extData  : [{
+						id   : mObj.fid,
+						type : mObj.type,
+						index: mIndex + 1,
+						name : mObj.name
+					}]
+				});
+				markers.push(mMarker);
+
+				//Marker 点击时弹出素材列表
+				mMarker.on('click', function (e) {
+					var mExtData = mMarker.getExtData();
+					var mContent = '<div class="info"><div class="info-top"><h4>该位置共有' + mExtData.length + '个文件</h4></div>';
+					mContent += '<table class="mapInfoTable">';
+
+					for (var i = 0; i < mExtData.length; i++) {
+						mContent += '<tr><td class="mapInfoLable"><span>' + mExtData[i].index + '</span></td><td><img src="' + '' + '"/>&nbsp;<a onclick="" href="javascript:void(0)">' + mExtData[i].name + '</a></td></tr>';
+					}
+					mContent += "</table></div>";
+
+					AMap.service('AMap.InfoWindow', function () {//回调函数
+						var infowindow = new AMap.InfoWindow({
+							content          : mContent,
+							offset           : new AMap.Pixel(0, -30),
+							closeWhenClickMap: true,
+							autoMove         : true
+						});
+
+						infowindow.open(_map, e.lnglat)
+					});
+				});
+			}
+		)
+
+		//设置调整的视图
+		_map.setFitView();
+	}
+
+</script>
+{/literal}
+</body>
+</html>

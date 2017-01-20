@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>FlexSlider</title>
+
+  <link type="text/css" rel="stylesheet" href="/public/assets/jquery.flexslider/flexslider.css" />
+  <style type="text/css">
+    .slides div{
+      position: absolute;
+      top: 70px;
+      right: 65px;
+      width: 420px;
+      padding: 10px;
+      background: #333;
+      opacity: .8;
+      color: #fff;
+    }
+
+    .slides a {
+      color: #007bc4/*#424242*/;
+      text-decoration: none;
+      outline: none;
+    }
+
+    .slides h4 {
+      height: 42px;
+      line-height: 42px;
+      font-size: 22px;
+      opacity: .8;
+    }
+
+    .slides p {
+      line-height: 22px;
+      font-size: 16px
+    }
+
+    .slides li img, .slides li iframe{
+      margin: 0 auto;
+      height: 500px !important;
+      width: 100%;
+    }
+
+    .flex-caption {
+      position:absolute;
+      left: 0;
+      bottom: 0;
+      width: 96%;
+      padding: 2%;
+
+      background: rgba(0,0,0,.5);
+      color: #fff;
+      text-shadow: 0 -1px 0 rgba(0,0,0,.3);
+      line-height: 80px;
+      margin: 0;
+    }
+  </style>
+</head>
+
+<body>
+<div class="flexslider" style="width: 1200px">
+  <ul class="slides">
+    <li>
+      <img src="/public/skins/headerpics/s3.png" alt="" />
+      <p class="flex-caption">s3 图片</p>
+    </li>
+    <li>
+      <img src="/public/skins/headerpics/s1.jpg" alt="" />
+      <p class="flex-caption"><a href="http://www.woothemes.com/flexslider/" target="_blank">FlexSlider官网</a></p>
+    </li>
+    <li>
+      <img src="/public/skins/headerpics/s2.jpg" alt="" />
+      <div style="">
+        <h4>FlexSlider</h4>
+        <p>FlexSlider是一款基于的jQuery内容滚动插件。它能让你轻松的创建内容滚动的效果，具有非常高的可定制性。它是将UL列表转换成内容滚动的列表，可以自动播放，或者使用导航按钮和键盘来控制。
+          <a href="http://www.woothemes.com/flexslider/" target="_blank">FlexSlider官网</a>
+          <a href="http://www.helloweba.com/view-blog-265.html" target="_blank">中文使用教程</a>
+        </p>
+      </div>
+    </li>
+  </ul>
+</div>
+
+<!-- Scripts -->
+<script src="/public/assets/jquery.min.js"></script>
+<script src="/public/assets/jquery.flexslider/jquery.flexslider-min.js"></script>
+<script type="text/javascript">
+  $(function() {
+    $(".flexslider").flexslider({
+      video: false,          //Boolean: If using video in the slider, will prevent CSS3 3D Transforms to avoid graphical glitches
+      mousewheel: false,    //Boolean: Requires jquery.mousewheel.js (https://github.com/brandonaaron/jquery-mousewheel) - Allows slider navigating via mousewheel
+      controlNav: false,    //Boolean:  usage是否显示控制菜单
+      prevText: "Pre",     //String: 上一项的文字
+      nextText: "Next",    //String: 下一项的文字
+      pauseText: '暂停',    //String: 暂停文字
+      playText: '播放',     //String: 播放文字
+      start: function() {
+
+      }, //Callback: function(slider) - Fires when the slider loads the first slide
+      before: function() {
+
+      },//Callback: function(slider) - Fires asynchronously with each slider animation
+      after: function() {
+
+      }, //Callback: function(slider) - Fires after each slider animation completes
+      end: function() {
+
+      }    //Callback: function(slider) - Fires when the slider reaches the last slide (asynchronous)
+    });
+  });
+
+</script>
+</body>
+</html>

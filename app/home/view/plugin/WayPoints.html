@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>WayPoints</title>
+
+  <!-- Scripts -->
+  <script src="/public/assets/jquery.min.js"></script>
+  <script src="/public/assets/waypoints/lib/jquery.waypoints.min.js"></script>
+  <script src="/public/assets/waypoints/lib/shortcuts/sticky.min.js"></script>
+  <script src="/public/assets/waypoints/lib/shortcuts/inview.min.js"></script>
+
+  <style>
+    .stuck {
+      position:fixed;
+      top:0;
+    }
+  </style>
+
+</head>
+
+<body>
+  <div id="test1" style="height: 400px">test1</div>
+  <div id="test2" style="height: 400px">test2</div>
+  <div id="test3" style="height: 400px">test3</div>
+  <div id="test4" style="height: 400px">test4</div>
+  <div id="test5" style="height: 400px">test5</div>
+  <div id="test6" style="height: 400px">test6</div>
+  <div id="test7" style="height: 400px">test7</div>
+
+<script>
+  //1.0 Common Scroll
+  var waypoint = new Waypoint({
+    element: $("#test4")[0],
+    handler: function(direction) {
+      alert('Scrolled to test4!');
+      this.destroy(); //表示只执行一次
+    },
+    offset: 'bottom-in-view'
+    //offset:100 //offset top
+  });
+
+  //2.0 Sticky Elements
+  var sticky = new Waypoint.Sticky({
+    element: $('#test3')[0],
+    wrapper: '<div class="sticky-wrapper waypoint" />',
+    direction: 'down right',
+    stuckClass: 'stuck'
+  });
+
+  //3.0 inview Scroll
+  var $example = $('#test1');
+  var inview;
+
+  if ($example.length) {
+    inview = new Waypoint.Inview({
+      element: $example[0],
+      enter: function (direction) {
+        alert('Enter triggered with direction ' + direction);
+      },
+      entered: function (direction) {
+        alert('Entered triggered with direction ' + direction);
+      },
+      exit: function (direction) {
+        alert('Exit triggered with direction ' + direction);
+      },
+      exited: function (direction) {
+        alert('Exited triggered with direction ' + direction);
+      }
+    })
+  }
+
+  function destroy_inview() {
+    $example.removeClass('waypoint');
+    inview.destroy()
+  }
+  function disable_inview() {
+    $example.addClass('disabled');
+    inview.disable()
+  }
+  function enable_inview() {
+    $example.removeClass('disabled');
+    inview.enable()
+  }
+
+</script>
+</body>
+
+</html>
