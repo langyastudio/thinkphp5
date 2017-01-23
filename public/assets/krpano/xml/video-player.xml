@@ -15,18 +15,20 @@
 			<!-- step one - add a background layer and fade it in -->
 			addlayer(videoplayer_bg);
 			set(layer[videoplayer_bg].type, container);
+			set(layer[videoplayer_bg].url, '%SWFPATH%/xml/skin/loading_success.png');
 			set(layer[videoplayer_bg].zindex, 999999);
 			set(layer[videoplayer_bg].align, lefttop);
 			set(layer[videoplayer_bg].width, 100%);
 			set(layer[videoplayer_bg].height, 100%);
-			set(layer[videoplayer_bg].bgcolor, 0x000000);
-			set(layer[videoplayer_bg].bgalpha, 0.8);
-			set(layer[videoplayer_bg].bgcapture, true);
+			<!--set(layer[videoplayer_bg].bgcolor, 0x000000);-->
+			<!--set(layer[videoplayer_bg].bgalpha, 0.8);-->
+			<!--set(layer[videoplayer_bg].bgcapture, true);-->
 			set(layer[videoplayer_bg].handcursor, false);
 			set(layer[videoplayer_bg].alpha, 0.0);
 			set(layer[videoplayer_bg].onclick, videoplayer_close() );
-			tween(layer[videoplayer_bg].alpha, 1.0, 0.5, default,
+			tween(layer[videoplayer_bg].alpha, 0.8, 0.5, default,
 				<!-- step two - after the fade-in add the videoplayer plugin -->
+
 				addlayer(videoplayer_plugin);
 				set(layer[videoplayer_plugin].parent, layer[videoplayer_bg]);
 				set(layer[videoplayer_plugin].align, center);

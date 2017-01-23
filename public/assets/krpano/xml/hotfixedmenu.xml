@@ -13,7 +13,7 @@
 	</layer>
 
 	<!-- no fullscreen support => no fullscreen button => smaller container width -->
-	<layer name="hotfixedmenu" width="320" devices="!fullscreensupport" />
+	<layer name="hotfixedmenu" width="320" devices="mobile" />
 
 	<!--添加热点
         %1 - 名称
