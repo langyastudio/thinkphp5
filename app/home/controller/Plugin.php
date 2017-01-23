@@ -77,4 +77,9 @@ class Plugin
 	{
 		return view('plugin/Jplayer');
 	}
+
+	public function Nprogress()
+	{
+		return view('plugin/Nprogress');
+	}
 }
