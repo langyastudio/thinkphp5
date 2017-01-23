@@ -4,6 +4,8 @@ namespace app\home\controller;
 /**
  * Html
  *
+ * view、xml、json和jsonp
+ *
  * @package app\home\controller
  */
 class Html
