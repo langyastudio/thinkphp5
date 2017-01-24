@@ -37,6 +37,9 @@ return [
 			'base/:c/:a'		=> ['home/base.:c/:a'],
 			':control/:action'	=> 'home/:control/:action'
 		],
+		'[api]' 	=> [
+				':control/:action'	=> 'api/:control/:action'
+		],
 		// control -> action
 		//多级
 		'base/:c/:a'		=> 'home/base.:c/:a',

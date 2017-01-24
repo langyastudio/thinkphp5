@@ -11,25 +11,25 @@
 
 return [
     // 数据库类型
-    'type'           => 'sqlite',
+    'type'           => 'mysql',
     // 服务器地址
-//    'hostname'       => '127.0.0.1',
+    'hostname'       => '120.27.125.233',
     // 数据库名
-    'database'       => 'main',
+    'database'       => 'test',
     // 用户名
-    'username'       => '',
+    'username'       => 'root',
     // 密码
-    'password'       => '',
+    'password'       => 'daemon',
     // 端口
     'hostport'       => '',
     // 连接dsn
-    'dsn'            => 'sqlite:'.ROOT_PATH.'db/hacfinauth.db',
+    'dsn'            => '',
     // 数据库连接参数
     'params'         => [],
     // 数据库编码默认采用utf8
     'charset'        => 'utf8',
     // 数据库表前缀
-    'prefix'         => 'auth_',
+    'prefix'         => 'ts',
     // 数据库调试模式
     'debug'          => true,
     // 数据库部署方式:0 集中式(单一服务器),1 分布式(主从服务器)
@@ -47,5 +47,5 @@ return [
     // 是否自动写入时间戳字段
     'auto_timestamp' => false,
     // 是否需要进行SQL性能分析
-    'sql_explain'    => false,
+    'sql_explain'    => true,
 ];

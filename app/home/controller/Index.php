@@ -151,7 +151,5 @@ class Index extends Controller
 		echo '<br/>'.'======================= HTTP头信息 ====================' . '<br/>';
 		echo 'HTTP信息：';
 		dump($request->header());
-
-
 	}
 }
