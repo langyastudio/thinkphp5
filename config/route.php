@@ -30,16 +30,20 @@
 
 return [
 		// 首页
-		'/'			=> 'home/html/index',
+		'/'			=> 'home/Index/index',
 		// home 模块
 		'[home]' 	=> [
-			':c/:a'=> ['home/:c/:a'],
+			//多级
+			'base/:c/:a'		=> ['home/base.:c/:a'],
+			':control/:action'	=> 'home/:control/:action'
 		],
 		// control -> action
-		':control/:action'		=> 'home/:control/:action',
+		//多级
+		'base/:c/:a'		=> 'home/base.:c/:a',
+		':control/:action'	=> 'home/:control/:action',
 
 		// 全局MISS路由
-		'__miss__'  => '/',
+//		'__miss__'  => '/',
 
 
 //    	'[hello]'     => [

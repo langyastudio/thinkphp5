@@ -1,5 +1,5 @@
 <?php
-namespace app\home\controller;
+namespace app\home\controller\base;
 
 /**
  * Html
@@ -10,11 +10,6 @@ namespace app\home\controller;
  */
 class Html
 {
-	public function Index()
-	{
-		return view('html/Index');
-	}
-
     public function AV()
     {
 		return view('html/AV');

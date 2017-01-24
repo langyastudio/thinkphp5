@@ -1,5 +1,5 @@
 <?php
-namespace app\home\controller;
+namespace app\home\controller\base;
 
 /**
  * HTML Dom / Browse

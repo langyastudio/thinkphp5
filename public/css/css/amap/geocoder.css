@@ -1,0 +1,155 @@
+#mainContent, .search-form {
+  margin-top: 20px;
+}
+
+#districtBtnId, #searchInput, #btnSearchId {
+  height: 36px;
+}
+
+#districtDropdownId {
+  width: 450px;
+  border: none;
+}
+
+.box-header {
+  padding: 10px;
+  border-bottom: 1px solid #f4f4f4 !important;
+}
+
+.box-body table {
+  width: 100%;
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.box-body table td {
+  width: 50%;
+  height: 30px;
+  text-align: left;
+}
+
+.box-body label {
+  font-size: 12px;
+  vertical-align: middle;
+  font-weight: normal;
+  margin-left: 5px;
+  margin-bottom: 0;
+}
+
+#container {
+  position: relative;
+  height: 100%;
+  height: 600px;
+}
+
+.ckLayers {
+  position: absolute;
+  right: 10px;
+  top: 10px;
+  z-index: 101;
+}
+
+.ckLayers label {
+  background-color: #ffffff;
+}
+
+.ckLayers .active {
+  background-color: #f0f0f0 !important;
+}
+
+.province {
+  width: 50px !important;
+}
+
+#cityList table {
+  width: 400px;
+  font-size: 12px;
+  font-weight: normal;
+}
+
+#cityList td {
+  padding: 5px;
+  border-bottom: 1px solid #e1e1e1;
+}
+
+.city a {
+  margin-right: 5px;
+  color: #999;
+  font-size: 12px;
+}
+
+.city a:hover {
+  text-decoration: underline;
+}
+
+.zm {
+  width: 15px;
+  height: 8px;
+  background-color: #EEEEEE;
+  padding: 5px;
+  color: #555555;
+  margin: 5px;
+}
+
+.zm:hover, .zm:active, .zm:focus {
+  background-color: #0091ff;
+  color: #FFFFFF;
+}
+
+.zm-group {
+  margin-top: 20px;
+}
+
+#commonCityId {
+  display: table-cell;
+}
+
+#commonCityId a {
+  float: left;
+  margin-left: 5px;
+  padding: 5px 5px 0 5px;
+  color: #0091ff;
+}
+
+#commonCityId a:hover {
+  text-decoration: underline;
+}
+
+.mapInfoTable {
+  position: relative;
+  table-layout: fixed;
+  border: none;
+}
+
+.mapInfoLable {
+  width: 30px !important;
+  text-align: center;
+}
+
+.mapInfoLable span {
+  text-align: center;
+  display: block;
+  width: 25px;
+  padding: 5px;
+  margin: 0 auto;
+  color: #FFFFFF;
+  background-color: #0091ff;
+}
+
+.mapInfoTable td {
+  border-bottom: 1px solid #f4f4f4;
+  font-size: 12px;
+  font-weight: normal;
+}
+
+.mapInfo {
+  background-color: #FFFFFF;
+}
+
+.amap-layers div {
+  position: relative !important;
+}
+
+.amap-marker-label {
+  width: 150px;
+}
