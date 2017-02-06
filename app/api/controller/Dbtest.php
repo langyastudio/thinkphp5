@@ -240,12 +240,11 @@ class Dbtest extends Controller
 	}
 
 	// 子查询
-	//Todo：
 	public function SubQuery()
 	{
-		$subQuery = Db::name('ts_user')->where('id', '<=', '17')->select(false);
+		$subQuery = Db::name('user')->where('id', '<=', '17')->buildSql();
 
-		$data = Db::table($subQuery.' a')->where('a.email', 'LIKE', '12315%')->select();
+		$data = Db::table([$subQuery => 'a'])->where('a.email', 'LIKE', '12315%')->select();
 		dump($data);
 	}
 }

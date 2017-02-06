@@ -1,21 +1,27 @@
 <?php
+/**
+ * This file is part of workerman.
+ *
+ * Licensed under The MIT License
+ * For full copyright and license information, please see the MIT-LICENSE.txt
+ * Redistributions of files must retain the above copyright notice.
+ *
+ * @author    walkor<walkor@workerman.net>
+ * @copyright walkor<walkor@workerman.net>
+ * @link      http://www.workerman.net/
+ * @license   http://www.opensource.org/licenses/mit-license.php MIT License
+ */
 namespace Workerman\Protocols;
 
 use Workerman\Worker;
 use Workerman\Lib\Timer;
+use Workerman\Connection\TcpConnection;
 
 /**
  * Websocket protocol for client.
  */
 class Ws
 {
-    /**
-     * Minimum head length of websocket protocol.
-     *
-     * @var int
-     */
-    const MIN_HEAD_LEN = 2;
-
     /**
      * Websocket blob type.
      *
@@ -48,7 +54,7 @@ class Ws
             return self::dealHandshake($buffer, $connection);
         }
         $recv_len = strlen($buffer);
-        if ($recv_len < self::MIN_HEAD_LEN) {
+        if ($recv_len < 2) {
             return 0;
         }
         // Buffer websocket frame data.
@@ -59,10 +65,14 @@ class Ws
                 return 0;
             }
         } else {
-            $data_len     = ord($buffer[1]) & 127;
+
             $firstbyte    = ord($buffer[0]);
+            $secondbyte   = ord($buffer[1]);
+            $data_len     = $secondbyte & 127;
             $is_fin_frame = $firstbyte >> 7;
+            $masked       = $secondbyte >> 7;
             $opcode       = $firstbyte & 0xf;
+
             switch ($opcode) {
                 case 0x0:
                     break;
@@ -109,9 +119,10 @@ class Ws
                     }
                     // Consume data from receive buffer.
                     if (!$data_len) {
-                        $connection->consumeRecvBuffer(self::MIN_HEAD_LEN);
-                        if ($recv_len > self::MIN_HEAD_LEN) {
-                            return self::input(substr($buffer, self::MIN_HEAD_LEN), $connection);
+                        $head_len = $masked ? 6 : 2;
+                        $connection->consumeRecvBuffer($head_len);
+                        if ($recv_len > $head_len) {
+                            return self::input(substr($buffer, $head_len), $connection);
                         }
                         return 0;
                     }
@@ -132,9 +143,10 @@ class Ws
                     }
                     //  Consume data from receive buffer.
                     if (!$data_len) {
-                        $connection->consumeRecvBuffer(self::MIN_HEAD_LEN);
-                        if ($recv_len > self::MIN_HEAD_LEN) {
-                            return self::input(substr($buffer, self::MIN_HEAD_LEN), $connection);
+                        $head_len = $masked ? 6 : 2;
+                        $connection->consumeRecvBuffer($head_len);
+                        if ($recv_len > $head_len) {
+                            return self::input(substr($buffer, $head_len), $connection);
                         }
                         return 0;
                     }
@@ -161,6 +173,14 @@ class Ws
             } else {
                 $current_frame_length = $data_len + 2;
             }
+
+            $total_package_size = strlen($connection->websocketDataBuffer) + $current_frame_length;
+            if ($total_package_size > TcpConnection::$maxPackageSize) {
+                echo "error package. package_length=$total_package_size\n";
+                $connection->close();
+                return 0;
+            }
+
             if ($is_fin_frame) {
                 return $current_frame_length;
             } else {
@@ -225,7 +245,36 @@ class Ws
             $frame .= $payload[$i] ^ $mask_key[$i % 4];
         }
         if ($connection->handshakeStep === 1) {
-            $connection->tmpWebsocketData = isset($connection->tmpWebsocketData) ? $connection->tmpWebsocketData . $frame : $frame;
+            // If buffer has already full then discard the current package.
+            if (strlen($connection->tmpWebsocketData) > $connection->maxSendBufferSize) {
+                if ($connection->onError) {
+                    try {
+                        call_user_func($connection->onError, $connection, WORKERMAN_SEND_FAIL, 'send buffer full and drop package');
+                    } catch (\Exception $e) {
+                        Worker::log($e);
+                        exit(250);
+                    } catch (\Error $e) {
+                        Worker::log($e);
+                        exit(250);
+                    }
+                }
+                return '';
+            }
+            $connection->tmpWebsocketData = $connection->tmpWebsocketData . $frame;
+            // Check buffer is full.
+            if ($connection->maxSendBufferSize <= strlen($connection->tmpWebsocketData)) {
+                if ($connection->onBufferFull) {
+                    try {
+                        call_user_func($connection->onBufferFull, $connection);
+                    } catch (\Exception $e) {
+                        Worker::log($e);
+                        exit(250);
+                    } catch (\Error $e) {
+                        Worker::log($e);
+                        exit(250);
+                    }
+                }
+            }
             return '';
         }
         return $frame;
@@ -331,6 +380,7 @@ class Ws
         $connection->handshakeStep               = 1;
         $connection->websocketCurrentFrameLength = 0;
         $connection->websocketDataBuffer         = '';
+        $connection->tmpWebsocketData            = '';
     }
 
     /**
