@@ -1,46 +1,47 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-	<meta charset="UTF-8">
-	<title>ThinkPHP 5.0</title>
-</head>
+{extend name="index:BaseTpl" /}
 
-<body>
+<!--{和$之间不能有任何的空格，否则标签无效-->
+{block name=title}{$title}{/block}
+
+{block name="head"}
 <style type="text/css">
 	* {
-	padding : 0;
-	margin  : 0;
-}
+		padding : 0;
+		margin  : 0;
+	}
 
-a {
-	color           : #2E5CD5;
-	cursor          : pointer;
-	text-decoration : none
-}
+	a {
+		color           : #2E5CD5;
+		cursor          : pointer;
+		text-decoration : none
+	}
 
-a:hover {
-	text-decoration : underline;
-}
+	a:hover {
+		text-decoration : underline;
+	}
 
-body {
-	background  : #fff;
-	font-family : "Century Gothic", "Microsoft yahei";
-	color       : #333;
-	font-size   : 18px
-}
+	body {
+		background  : #fff;
+		font-family : "Century Gothic", "Microsoft yahei";
+		color       : #333;
+		font-size   : 18px
+	}
 
-h1 {
-	font-size     : 100px;
-	font-weight   : normal;
-	margin-bottom : 12px;
-}
+	h1 {
+		font-size     : 100px;
+		font-weight   : normal;
+		margin-bottom : 12px;
+	}
 
-p {
-	line-height : 1.6em;
-	font-size   : 42px
-}
+	p {
+		line-height : 1.6em;
+		font-size   : 42px
+	}
 </style>
+{/block}
 
+{block name="menu"}
+<!--基本信息-->
 <div style="padding: 24px 48px;">
 	<h1>:)</h1>
 	<p> ThinkPHP Demo 2.0
@@ -50,5 +51,21 @@ p {
 	<span style="font-size:22px;">[ V2.0 版本由<a href="http://hacfin.com" target="hacfin">北京华科飞扬科技股份公司</a> 独家赞助发布 ]
 	</span>
 </div>
-</body>
-</html>
+
+<!--系统变量-->
+<div>
+	<div>
+		{$Think.config.app_namespace}
+	</div>
+	<div>
+		<!--调用Request对象的ip方法-->
+		{$Request.ip}
+	</div>
+</div>
+
+<!--原样输出-->
+{literal}
+Hello,{$title}！
+{/literal}
+
+{/block}

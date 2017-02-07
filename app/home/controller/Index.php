@@ -1,6 +1,7 @@
 <?php
 namespace app\home\controller;
 use think\Controller;
+use think\Debug;
 use think\Request;
 
 /**
@@ -25,8 +26,13 @@ class Index extends Controller
 
 	public function Index()
 	{
-		return view('index/Index');
+		$data = ['title' => 'ThinkPHP5.0'];
+
+		// [模块@][控制器/][操作]
+		return view('index/Index', $data);
 	}
+
+
 
 	// 页面成功跳转
 	public function JumpSuccess()

@@ -2,6 +2,7 @@
 namespace app\api\controller;
 use app\api\model\User;
 use think\Controller;
+use think\Debug;
 use think\Loader;
 
 /**
@@ -69,6 +70,8 @@ class Mdtest extends Controller
 	// 查询
 	public function Query()
 	{
+		Debug::remark('s');
+
 		// 默认不包含
 		// withTrashed 包含软删除的数据
 		// onlyTrashed 仅仅查询软删除的数据
@@ -81,6 +84,10 @@ class Mdtest extends Controller
 			echo $user->sex; // 通过获取器获取字段
 			dump($user->getData()); // getData 获取原始字段数据
 		}
+
+		Debug::remark('e');
+
+		echo Debug::getRangeTime('s', 'e') . 's';
 	}
 
 	// 查询 hidden、visible append
