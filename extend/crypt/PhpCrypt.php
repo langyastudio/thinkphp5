@@ -1,4 +1,6 @@
 <?php
+namespace crypt;
+
 /**
  * Created by PhpStorm.
  * User: hk
