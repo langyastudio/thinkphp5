@@ -6,15 +6,15 @@ namespace app\home\controller\base;
  *
  * @package app\home\controller
  */
-class JS
+class Jscript
 {
 	public function Index()
 	{
-		return view('js/Index');
+		return view('jscript/Index');
 	}
 
 	public function Cookie()
     {
-		return view('js/Cookie');
+		return view('jscript/Cookie');
     }
 }
