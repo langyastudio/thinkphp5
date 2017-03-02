@@ -26,7 +26,7 @@
  * @package    Phinx
  * @subpackage Phinx\Util
  */
-namespace Phinx;
+namespace Phinx\Util;
 
 class Util
 {
