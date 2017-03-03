@@ -42,8 +42,9 @@
 
     <!-- 视角 -->
     <view hlookat="0" vlookat="0"
-          fovtype="MFOV" fov="96.0" fovmin="60" fovmax="150"
-          fisheye="0.35" distortion="0"
+          vlookatmax="0" vlookatmin="0" limitview="range"
+          fovtype="MFOV"
+          fov="130" fovmin="130" fovmax="130"
     />
 
      <!--全景视频播放插件-->
@@ -90,7 +91,7 @@
     -->
     <!-- 【bug】延迟2秒后再调用，后期可能会产生bug。为了解决全景视频可能还没加载，导致plugin[abs].get_width获取失败的问题-->
     <action name="add_hotspot">
-        showlog(true);
+        <!--showlog(true);-->
 
         delayedcall( 2,
 
@@ -123,7 +124,7 @@
     </action>
 
     <!-- 全景图，圆柱型全景图（CYLINDER）-->
-    <image type="CYLINDER" hfov="360" vfov="32">
+    <image type="CYLINDER" hfov="360">
         <cylinder url="plugin:video"/>
     </image>
 
