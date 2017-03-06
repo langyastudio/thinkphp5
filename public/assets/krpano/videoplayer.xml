@@ -41,10 +41,10 @@
     </action>
 
     <!-- 视角 -->
-    <view hlookat="0" vlookat="0"
-          vlookatmax="0" vlookatmin="0" limitview="range"
+    <view hlookat="0" vlookat="20"
+          vlookatmax="0" vlookatmin="20" limitview="range"
           fovtype="MFOV"
-          fov="130" fovmin="130" fovmax="130"
+          fov="90" fovmin="90" fovmax="90"
     />
 
      <!--全景视频播放插件-->
