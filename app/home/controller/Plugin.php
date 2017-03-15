@@ -82,4 +82,9 @@ class Plugin
 	{
 		return view('plugin/Nprogress');
 	}
+
+	public function Toastr()
+	{
+		return view('plugin/Toastr');
+	}
 }

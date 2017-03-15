@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Toastr</title>
+
+	<link rel='stylesheet' href='/public/assets/jquery.toastr/toastr.min.css'/>
+</head>
+
+<script src="/public/assets/jquery.min.js"></script>
+<script src='/public/assets/jquery.toastr/toastr.min.js'></script>
+
+<body>
+<script>
+	$(window).load(function () {
+
+		Success('退出登录成功');
+
+	});
+
+	function Success($msg) {
+		toastr.options = {
+			closeButton      : true,
+			progressBar      : true,
+			newestOnTop      : true,
+			showMethod       : 'slideDown',
+			timeOut          : 4000
+		};
+
+		toastr.success($msg);
+
+		// Remove current toasts using animation
+		toastr.clear();
+		toastr.error($msg);
+
+		// Immediately remove current toasts without using animation
+//		toastr.remove();
+	}
+</script>
+</body>
+</html>
