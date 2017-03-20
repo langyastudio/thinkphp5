@@ -4,7 +4,7 @@
 	<meta charset="UTF-8">
 	<title>Title</title>
 
-	<link href="/public/assets/jquery.jstree/themes/default/style.min.css" rel="stylesheet" type="text/css" />
+	<link href="/public/assets/jquery.jstree/themes/proton/style.min.css" rel="stylesheet" type="text/css" />
 </head>
 
 <script type="text/javascript" src="/public/assets/jquery.min.js"></script>
@@ -15,21 +15,49 @@
 
 <script>
 	$(function () {
+
 		$('#jstree_demo').jstree({
-			"core" : {
-				"multiple": false
+			"core"   : {
+				"animation"     : 0,
+				"multiple"      : false,
+				"check_callback": true,  // so that create works
+				'themes': {
+					"icons" : false,
+					'name': 'proton',
+					'responsive': true
+				}
 			},
-			"plugins" : [
-				"changed", "wholerow", "json_data"
-			],
-			"data":{}
+			"plugins": ["changed"]
 		});
 
-		$('#jstree_demo').jstree("create_node", '#', {id: 1, text: 'test'}, false, false)
+		//change事件
+		$('#jstree_demo').on("changed.jstree", function (e, data) {
+			console.log(data.node.id);
+			console.log(data.node.text);
+			console.log(data.node.data);
+		});
+
+		var ref = $('#jstree_demo').jstree(true);
+		//动态增删改节点
+		//add
+		ref.create_node("#", {id: 1, text: '班级1', data: ''});
+		ref.create_node("1", {id: 11, text: '班级11', data: ''});
+		ref.create_node("1", {id: 12, text: '班级12', data: ''});
+		ref.create_node("#", {id: 2, text: '班级2', data: ''});
+		ref.create_node("#", {id: 3, text: '班级3', data: ''});
+
+		//delete
+		ref.delete_node('3');
+
+		//edit
+		ref.edit('1');
+
+		//展开
+		ref.open_all();
+
+		//移除所有的
+//		ref.delete_node(ref.get_node('#').children);
 	});
-
-
-
 
 </script>
 </body>
