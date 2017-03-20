@@ -87,4 +87,9 @@ class Plugin
 	{
 		return view('plugin/Toastr');
 	}
+
+	public function JSTree()
+	{
+		return view('plugin/JSTree');
+	}
 }

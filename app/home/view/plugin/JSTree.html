@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Title</title>
+
+	<link href="/public/assets/jquery.jstree/themes/default/style.min.css" rel="stylesheet" type="text/css" />
+</head>
+
+<script type="text/javascript" src="/public/assets/jquery.min.js"></script>
+<script type="text/javascript" src="/public/assets/jquery.jstree/jstree.min.js"></script>
+<body>
+<div id="jstree_demo">
+</div>
+
+<script>
+	$(function () {
+		$('#jstree_demo').jstree({
+			"core" : {
+				"multiple": false
+			},
+			"plugins" : [
+				"changed", "wholerow", "json_data"
+			],
+			"data":{}
+		});
+
+		$('#jstree_demo').jstree("create_node", '#', {id: 1, text: 'test'}, false, false)
+	});
+
+
+
+
+</script>
+</body>
+</html>
