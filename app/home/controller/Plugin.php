@@ -68,9 +68,9 @@ class Plugin
 		return view('plugin/Transit');
     }
 
-	public function Sewise()
+	public function SewiseAudio()
 	{
-		return view('plugin/Sewise');
+		return view('plugin/SewiseAudio');
 	}
 
 	public function Jplayer()
@@ -91,5 +91,10 @@ class Plugin
 	public function JSTree()
 	{
 		return view('plugin/JSTree');
+	}
+
+	public function VideoJs()
+	{
+		return view('plugin/VideoJs');
 	}
 }

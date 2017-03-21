@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>Video.js | HTML5 Video Player</title>
+	<link href="/public/assets/videojs/video-js.css" rel="stylesheet" type="text/css">
+
+	<!--[if lt IE 9]>
+	<script src="/public/assets/html5shiv.min.js"></script>
+	<script src="/public/assets/respond.min.js"></script>
+	<script src="/public/assets/videojs/ie8/videojs-ie8.min.js"></script>
+	<![endif]-->
+
+	<script src="/public/assets/jquery.min.js"></script>
+	<script src="/public/assets/videojs/video.min.js"></script>
+	<script src="/public/assets/videojs/lang/zh-CN.js"></script>
+	<!--支持hls-->
+	<script src="/public/assets/videojs/videojs-contrib-hls.min.js"></script>
+	<!--quality-levels-->
+	<script src="/public/assets/videojs/videojs-contrib-quality-levels.min.js"></script>
+	<script>videojs.options.flash.swf = "/public/assets/videojs/video-js.swf";</script>
+</head>
+
+<body>
+<video id="example_video_1" class="video-js vjs-default-skin vjs-big-play-centered" data-setup="{}">
+</video>
+
+<script>
+	var player = null;
+	$(function () {
+
+		player = videojs('#example_video_1', {
+			techOrder : ["html5", "flash"],
+			controls  : true,
+			autoplay  : true,
+			preload   : "auto",
+			poster    : '',
+			width     : 800,
+			height    : 600,
+			language  : 'zh-CN',
+			nativeControlsForTouch: false,
+			sources: [{
+				type: 'video/mp4', src: '/public/res/blackboard.mp4'
+			}]
+		}).ready(function () {
+//			if ((browser.TOUCH_ENABLED || browser.IS_IPHONE || browser.IS_NATIVE_ANDROID) &&
+//				 options.nativeControlsForTouch === true) {
+//				this.setControls(true);
+//			}
+
+//			var path = '/public/res/blackboard.mp4';
+//			var type = 'video/mp4';
+//			var path = 'rtmp://live.boolongo.com:1935/live/01_001_109';
+//			var type = 'rtmp/flv';
+//			var path = "http://live.hkstv.hk.lxdns.com/live/hks/playlist.m3u8";
+//			var type="application/x-mpegURL";
+
+			//绑定视频播放中事件
+//			if(type == 'video/mp4'){
+//				var lastTime = localStorage.getItem(path + ".currentTime") || 0;
+//				this.currentTime(lastTime);
+//
+//				this.on("timeupdate", function (data) {
+//					lastTime = this.currentTime();
+//					localStorage.setItem(path + ".currentTime", lastTime);
+//				});
+//			}
+
+//			this.src({type: type, src: path});
+//			this.reset();
+//			this.load();
+
+			playerInitVideo();
+
+			this.play();
+		});
+
+	});
+
+	function playerInitVideo() {
+		$videoPanelMenu = $(".vjs-fullscreen-control");
+		$videoPanelMenu.before(
+				'<div class="vjs-subtitles-button vjs-menu-button vjs-menu-button-popup vjs-control vjs-button" tabindex="0" role="menuitem" aria-live="polite" aria-expanded="false" aria-haspopup="true">'
+				+ '<div class="vjs-menu" role="presentation">'
+				+ '<ul class="vjs-menu-content" role="menu">'
+				+ '<li class="vjs-menu-item" tabindex="-1" role="menuitemcheckbox"  onclick="changeUrl(this)">高清</li>'
+				+ '<li class="vjs-menu-item vjs-selected" tabindex="-1" role="menuitemcheckbox"  onclick="changeUrl(this)">标清</li>'
+				+ '</ul>'
+				+ '</div>'
+				+ '<span class="vjs-control-text">清晰度</span>'
+				+ '</div>');
+	}
+
+	//高清标清切换就是应用名加减HD
+	function changeUrl(video) {
+		$(".vjs-menu-item").removeClass("vjs-selected");
+		$(video).addClass("vjs-selected");
+
+		//获取当前播放的url
+		var CurrentUrl = player.currentSrc();
+
+		console.log( CurrentUrl )
+
+		var index = $(video).text();
+		if (index == "高清") {
+			if (CurrentUrl.indexOf("HD") == -1) {
+				CurrentUrl = CurrentUrl + "HD";
+			} else {
+				return;
+			}
+		} else {
+			if (CurrentUrl.indexOf("HD") != -1) {
+				CurrentUrl = CurrentUrl.replace("HD", "");
+			} else {
+				return;
+			}
+		}
+
+		//修改地址并播放
+		player.src({type: type, src: CurrentUrl});
+		player.play();
+	}
+</script>
+</body>
+
+</html>
