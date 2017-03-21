@@ -12,11 +12,12 @@
 
 	<script src="/public/assets/jquery.min.js"></script>
 	<script src="/public/assets/videojs/video.min.js"></script>
+	<!--中文包-->
 	<script src="/public/assets/videojs/lang/zh-CN.js"></script>
 	<!--支持hls-->
-	<script src="/public/assets/videojs/videojs-contrib-hls.min.js"></script>
-	<!--quality-levels-->
-	<script src="/public/assets/videojs/videojs-contrib-quality-levels.min.js"></script>
+	<script src="/public/assets/videojs/hls/videojs-contrib-hls.min.js"></script>
+	<!--hotkey-->
+	<script src="/public/assets/videojs/hotkeys/videojs.hotkeys.min.js"></script>
 	<script>videojs.options.flash.swf = "/public/assets/videojs/video-js.swf";</script>
 </head>
 
@@ -70,6 +71,21 @@
 //			this.load();
 
 			playerInitVideo();
+
+			//1.0 hotkey
+			//https://github.com/ctd1500/videojs-hotkeys
+			//Space bar toggles play/pause.
+			//Right and Left Arrow keys seek the video forwards and back.
+			//Up and Down Arrow keys increase and decrease the volume.
+			//M key toggles mute/unmute.
+			//F key toggles fullscreen off and on. (Does not work in Internet Explorer, it seems to be a limitation where scripts cannot request fullscreen without a mouse click)
+			//Double-clicking with the mouse toggles fullscreen off and on.
+			//Number keys from 0-9 skip to a percentage of the video. 0 is 0% and 9 is 90%.
+			this.hotkeys({
+				volumeStep               : 0.1,
+				seekStep                 : 5,
+				enableModifiersForNumbers: false
+			});
 
 			this.play();
 		});
