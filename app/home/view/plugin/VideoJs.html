@@ -5,13 +5,14 @@
 	<link href="/public/assets/videojs/video-js.css" rel="stylesheet" type="text/css">
 
 	<!--[if lt IE 9]>
-	<script src="/public/assets/html5shiv.min.js"></script>
 	<script src="/public/assets/respond.min.js"></script>
+	<script src="/public/assets/html5shiv.min.js"></script>
 	<script src="/public/assets/videojs/ie8/videojs-ie8.min.js"></script>
 	<![endif]-->
 
 	<script src="/public/assets/jquery.min.js"></script>
 	<script src="/public/assets/videojs/video.min.js"></script>
+
 	<!--中文包-->
 	<script src="/public/assets/videojs/lang/zh-CN.js"></script>
 	<!--支持hls-->
@@ -49,11 +50,16 @@
 	var player = null;
 
 	$(function () {
+		//取消右键事件
+		$("#example_video_1").bind("contextmenu", function () {
+			return false;
+		});
 
 		player = videojs('#example_video_1', {
-			techOrder             : ["html5", "flash"],
+			techOrder             : ["flash", "html5"],
 			autoplay              : true,
 			preload               : "auto",
+			loop				  : false,
 			poster                : '',
 			width                 : 800,
 			height                : 600,
@@ -64,9 +70,32 @@
 					{type: 'video/mp4', src: '/public/res/ppt.mp4', label: '高清'}
 				],
 			controls              : true,
+			controlBar: {
+				captionsButton        : false,
+				chaptersButton        : false,
+				subtitlesButton       : false,
+				playbackRateMenuButton: true,
+				LiveDisplay           : true,
+				remainingTimeDisplay  : true,
+				progressControl       : true,
+				fullscreenToggle	  : true,
+
+				//竖着的音量条
+				volumeMenuButton: {
+					inline  : false,
+					vertical: true
+				}
+			},
 			plugins               : {
+				//分辨率选择插件
 				videoJsResolutionSwitcher: {
 					dynamicLabel: true
+				},
+				//热键插件
+				hotkeys: {
+					volumeStep               : 0.1,
+					seekStep                 : 5,
+					enableModifiersForNumbers: false
 				}
 			}
 		}).ready(function () {
@@ -97,22 +126,7 @@
 //			this.reset();
 //			this.load();
 
-			//1.0 hotkey
-			//https://github.com/ctd1500/videojs-hotkeys
-			//Space bar toggles play/pause.
-			//Right and Left Arrow keys seek the video forwards and back.
-			//Up and Down Arrow keys increase and decrease the volume.
-			//M key toggles mute/unmute.
-			//F key toggles fullscreen off and on. (Does not work in Internet Explorer, it seems to be a limitation where scripts cannot request fullscreen without a mouse click)
-			//Double-clicking with the mouse toggles fullscreen off and on.
-			//Number keys from 0-9 skip to a percentage of the video. 0 is 0% and 9 is 90%.
-			this.hotkeys({
-				volumeStep               : 0.1,
-				seekStep                 : 5,
-				enableModifiersForNumbers: false
-			});
-
-			//2.0 Add dynamically sources
+			//Add dynamically sources
 //			this.updateSrc([
 //				{
 //					src: '/public/res/ppt.mp4',
@@ -125,7 +139,6 @@
 //					label: '高清'
 //				}
 //			]);
-
 			this.on('resolutionchange', function(){
 				console.info('Source changed to %s', this.src())
 			});
