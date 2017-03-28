@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Select2</title>
+
+	<link href="/public/assets/jquery.select2/css/select2.min.css" type="text/css" rel="stylesheet">
+	<link href="/public/assets/jquery.select2/select2-bootstrap-theme/select2-bootstrap.min.css" type="text/css" rel="stylesheet">
+
+	<script src="/public/assets/jquery.min.js" ></script>
+	<script src="/public/assets/jquery.select2/js/select2.full.min.js" ></script>
+</head>
+
+<body>
+<div>
+	<select class="js-example-basic-single" style="width: 600px" multiple="multiple">
+	</select>
+</div>
+
+<script>
+	$(function () {
+		$(".js-example-basic-single").select2({
+			language: 'zh-CN',
+			//不自定义标签
+			tags: false,
+			//placeholder
+			placeholder: '选择从教室',
+			//允许清空
+			allowClear: true,
+			//主题
+			//IE8下，导致光不正确，所以在IE8下，可以不使用theme
+			theme: "bootstrap",
+			//最多选择多个元素
+			maximumSelectionLength: 2,
+			//数据列表，可以分组
+			data: [
+				{
+					id: '101',
+					text: '101班级'
+				},
+				{
+					id: '102',
+					text: '102班级',
+					disabled: 'disabled'
+				},
+				{
+					id: '103',
+					text: '103班级'
+				},
+				// ... more data objects ...
+			]
+		});
+	});
+</script>
+</body>
+</html>

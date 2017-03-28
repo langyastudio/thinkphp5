@@ -97,4 +97,9 @@ class Plugin
 	{
 		return view('plugin/VideoJs');
 	}
+
+	public function Select2()
+	{
+		return view('plugin/Select2');
+	}
 }
