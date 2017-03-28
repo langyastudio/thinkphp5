@@ -102,4 +102,9 @@ class Plugin
 	{
 		return view('plugin/Select2');
 	}
+
+	public function Bowser()
+	{
+		return view('plugin/Bowser');
+	}
 }
