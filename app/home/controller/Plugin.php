@@ -28,11 +28,6 @@ class Plugin
 		return view('plugin/ImageCropper');
     }
 
-    public function ImageView()
-    {
-		return view('plugin/ImageView');
-    }
-
     public function Layer()
     {
 		return view('plugin/Layer');
@@ -68,16 +63,6 @@ class Plugin
 		return view('plugin/Transit');
     }
 
-	public function SewiseAudio()
-	{
-		return view('plugin/SewiseAudio');
-	}
-
-	public function Jplayer()
-	{
-		return view('plugin/Jplayer');
-	}
-
 	public function Nprogress()
 	{
 		return view('plugin/Nprogress');
@@ -93,11 +78,6 @@ class Plugin
 		return view('plugin/JSTree');
 	}
 
-	public function VideoJs()
-	{
-		return view('plugin/VideoJs');
-	}
-
 	public function Select2()
 	{
 		return view('plugin/Select2');
@@ -106,5 +86,15 @@ class Plugin
 	public function Bowser()
 	{
 		return view('plugin/Bowser');
+	}
+
+	public function MagnificPopup()
+	{
+		return view('plugin/MagnificPopup');
+	}
+
+	public function ImageView()
+	{
+		return view('plugin/ImageView');
 	}
 }

@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>MagnificPopup</title>
+
+	<link rel="stylesheet" href="/public/assets/jquery.magnific-popup/magnific-popup.css">
+
+	<script src="/public/assets/jquery.min.js"></script>
+	<script src="/public/assets/jquery.magnific-popup/jquery.magnific-popup.min.js"></script>
+</head>
+
+<body>
+<div class="parent-container">
+	<!--mfp-TYPE 指定内容的类型-->
+	<a href="/public/skins/headerpics/s1.jpg" class="mfp-image">Open popup 1</a>
+	<a href="/public/skins/headerpics/s2.jpg" class="mfp-image">Open popup 2</a>
+	<a href="/public/skins/headerpics/s3.png" class="mfp-image">Open popup 3</a>
+</div>
+
+<div>
+	<input type="button" id="btn" value="Open"></input>
+</div>
+
+
+<script>
+	$(function () {
+		//=================================== 说明 START =================================================//
+		//1.0 Content Types：
+		//	image, iframe, inline, and ajax
+		//
+		//2.0 可以自定义iframe
+		// http://dimsemenov.com/plugins/magnific-popup/documentation.html#iframe-type
+		// http://codepen.io/dimsemenov/pen/jnohA
+		//=================================== 说明 Ender =================================================//
+
+		// From a group of elements with one parent
+		$('.parent-container').magnificPopup({
+			delegate: 'a' // child items selector, by clicking on it popup will open
+		});
+
+		//From the ‘items’ option
+		//
+		//embed分享时，可以使用
+		//<iframe src="http://*****/embed/sewisevideo?fid=2" width="640" height="360" frameborder="0"
+		// webkitallowfullscreen mozallowfullscreen allowfullscreen>
+		//</iframe>
+		$('#btn').magnificPopup({
+			type: 'image',
+			items: [
+				{
+					src: '/public/skins/headerpics/s1.jpg',
+				},
+				{
+					src: '/embed/pic?fid=2',
+					type: 'iframe'
+				},
+				{
+					src: '/embed/sewisevideo?fid=2',
+					type: 'iframe'
+				}
+			],
+			//集合
+			gallery: {
+				enabled: true,
+				tPrev: '前一页', // title for left button
+				tNext: '后一页'  // title for right button
+			}
+		});
+	});
+</script>
+</body>
+</html>

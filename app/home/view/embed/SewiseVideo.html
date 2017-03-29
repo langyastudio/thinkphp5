@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
+	<title>SewiseVideo</title>
+
+	<style>
+		#player, body, html, iframe {
+			width            : 100%;
+			height           : 100%;
+			margin           : 0;
+			padding          : 0;
+			background-color : #000;
+			overflow         : hidden
+		}
+	</style>
+</head>
+
+<body>
+<input id="fid" type="hidden" value="{$fid}">
+
+<div id="player">
+</div>
+</body>
+
+<script type="text/javascript" src="/public/assets/sewisePlayer/sewise.player.min.js"></script>
+<script>
+	var setup = {
+		server: "vod",
+		type: "mp4",
+		videourl: "http://192.168.1.100:8888/public/res/ppt.mp4",
+		title: "test",
+		lang: "zh_CN",
+		volume: 0.6,
+		topbardisplay: "enable",
+		skin         : 'vodOrange',
+		primary      : 'flash', //flash的皮肤好看
+	};
+	SewisePlayer.setup(setup, "player");
+</script>
+
+</html>

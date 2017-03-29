@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Pic</title>
+
+	<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+	<!--[if lt IE 9]>
+	<script src="/public/assets/html5shiv.min.js"></script>
+	<script src="/public/assets/respond.min.js"></script>
+	<![endif]-->
+
+	<style>
+		body, html, iframe {
+			width            : 100%;
+			height           : 100%;
+			margin           : 0;
+			padding          : 0;
+			background-color : #000;
+			overflow         : hidden
+		}
+
+		#player {
+			position : absolute;
+			width    : 100%;
+			top      : 0;
+			left     : 0;
+			right    : 0;
+			bottom   : 0;
+			margin   : auto;
+		}
+	</style>
+</head>
+
+<body>
+<div>
+	<input id="fid" type="hidden" value="{$fid}">
+	<img id="player" class="img" src="">
+</div>
+
+<script src="/public/assets/jquery.min.js"></script>
+<script>
+	$(function () {
+		var fid = $("#fid").val();
+
+		if(fid == 1){
+			$("#player").attr('src', '/public/skins/headerpics/s1.jpg');
+		}else {
+			$("#player").attr('src', '/public/skins/headerpics/s2.jpg');
+		}
+	});
+</script>
+</body>
+</html>
