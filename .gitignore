@@ -2,3 +2,4 @@
 *.log
 public/css/.sass-cache/
 node_modules
+.sass-cache
