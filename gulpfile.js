@@ -6,7 +6,8 @@ var gulp      = require('gulp'),
 	concat    = require('gulp-concat'),		 //js合并
 	uglify    = require('gulp-uglify'),		 //js压缩
 	rename    = require('gulp-rename'),		 //重命名
-	jshint    = require('gulp-jshint');		 //js代码检测
+	jshint    = require('gulp-jshint'),      //js代码检测
+	del 	  = require('del');				 //删除文件夹里的内容
 // “src/a.js”：指定具体文件
 // “*”：匹配所有文件 例：src/*.js(包含src下的所有js文件)
 //  “**”：匹配0个或多个子文件夹 例：src/**/*.js(包含src的0个或多个子文件夹下的js文件)
@@ -16,12 +17,12 @@ var gulp      = require('gulp'),
 
 //【1】语法检查
 gulp.task('jshint', function () {
-	return gulp.src('public/scripts/sor/**/*.js')
+	return gulp.src('public/scripts/src/**/*.js')
 			.pipe(jshint())
 			.pipe(jshint.reporter('default'));
 });
 
-//【2】创建Compass任务，编译Sass、压缩css
+//【2】创建Compass任务，编译Sass生成到css、压缩css生成到dist
 gulp.task('compass', function() {
 	gulp.src('public/css/sass/**/*.scss')
 			.pipe(compass({
@@ -29,9 +30,10 @@ gulp.task('compass', function() {
 				css: 'public/css/css',      // 编译路径
 				sass: 'public/css/sass'     // sass路径
 			}))
+			.pipe(gulp.dest('public/css/css'))  //输出到文件夹
 			.pipe(minifycss())                  //压缩CSS
 			.pipe(rename({suffix: '.min'}))     //rename压缩后的文件名
-			.pipe(gulp.dest('public/css/css')) // 发布到线上版本
+			.pipe(gulp.dest('public/css/dist')) // 发布到线上版本
 			;
 });
 
@@ -60,30 +62,27 @@ gulp.task('compass', function() {
 // 			.pipe(gulp.dest('dest/'));
 // });
 
-//【4】压缩css
-// gulp.task('minifycss', function () {
-// 	return gulp.src('css/*.css')    //需要操作的文件
-// 			.pipe(rename({suffix: '.min'}))   //rename压缩后的文件名
-// 			.pipe(minifycss())   //执行压缩
-// 			.pipe(gulp.dest('Css'));   //输出文件夹
-// });
-
-//【5】压缩、合并 js
+//【4】压缩、合并 js
 gulp.task('minifyjs', function () {
-	return gulp.src('public/scripts/sor/**/*.js') //需要操作的文件
+	return gulp.src('public/scripts/src/**/*.js') //需要操作的文件
 			// .pipe(concat('main.js'))    //合并所有js到main.js
-			// .pipe(gulp.dest('JS'))  //输出到文件夹
+			// .pipe(gulp.dest('public/scripts/dist'))  //输出到文件夹
 			.pipe(rename({suffix: '.min'}))   //rename压缩后的文件名
 			.pipe(uglify())    //压缩
 			.pipe(gulp.dest('public/scripts/dist'));  //输出
 });
 
-//【6】监视文件的变化
-gulp.task('watch', function () {
-	gulp.watch('public/scripts/sor/**/*.js', ['jshint', 'minifyjs']);
-	gulp.watch('public/css/sass/**/*.js', ['compass']);
+//执行压缩前，先删除文件夹里的内容
+gulp.task('clean', function(cb) {
+	del(['public/scripts/dist/*', 'public/css/dist/*', 'public/css/css/*'], cb)
 });
 
-//【7】默认命令，在cmd中输入gulp后，执行的就是这个任务(压缩js需要在检查js之后操作)
-gulp.task('default', ['jshint', 'minifyjs', 'minifycss', 'watch'], function () {
+//【5】监视文件的变化
+gulp.task('watch', function () {
+	gulp.watch('public/scripts/src/**/*.js', ['jshint', 'minifyjs']);
+	gulp.watch('public/css/sass/**/*.scss', ['compass']);
+});
+
+//【6】默认命令，在cmd中输入gulp后，执行的就是这个任务(压缩js需要在检查js之后操作)
+gulp.task('default', ['jshint', 'minifyjs', 'compass', 'watch'], function () {
 });
