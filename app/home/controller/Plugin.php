@@ -93,8 +93,8 @@ class Plugin
 		return view('plugin/MagnificPopup');
 	}
 
-	public function ImageView()
+	public function LayPage()
 	{
-		return view('plugin/ImageView');
+		return view('plugin/LayPage');
 	}
 }
