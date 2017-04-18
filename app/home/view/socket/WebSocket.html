@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>WebSocket</title>
+
+	<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+	<!--[if lt IE 9]>
+	<script src="/public/assets/html5shiv.min.js"></script>
+	<script src="/public/assets/respond.min.js"></script>
+	<![endif]-->
+
+	<script type="text/javascript" src="/public/assets/jquery.min.js"></script>
+	<script type="text/javascript" src="/public/assets/web-socket-js/swfobject.js"></script>
+	<script type="text/javascript" src="/public/assets/web-socket-js/web_socket.js"></script>
+</head>
+
+<body>
+<div>
+	<ul id="msgid">
+	</ul>
+
+	<form>
+		<input type="text" id="txtid">
+		<button id="btn" onclick="SendMsg();">发送</button>
+	</form>
+</div>
+
+<script type="text/javascript">
+	var ws = null;
+	$(function () {
+		// Let the library know where WebSocketMain.swf is:
+		WEB_SOCKET_SWF_LOCATION = "/public/assets/web-socket-js/WebSocketMain.swf";
+		WEB_SOCKET_DEBUG = true;
+//		try {
+//			WebSocket.loadFlashPolicyFile("xmlsocket://" + host + ":10843"); //默认843
+//		} catch (e) {
+//		}
+
+		// Write your code in the same way as for native WebSocket:
+		ws = new WebSocket("ws://192.168.1.101:2346/");
+
+		ws.onopen = function() {
+
+		};
+		ws.onmessage = function(e) {
+			$("#msgid").append( "<li>" + e.data + "</li>" );
+		};
+		ws.onclose = function() {
+			console.log("closed");
+		};
+		ws.onerror = function () {
+			console.log("onError");
+		};
+	});
+
+	function SendMsg() {
+		ws.send( $('#txtid').val() );
+	}
+</script>
+
+</body>
+</html>
