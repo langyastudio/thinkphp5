@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "f9cc850b3554aafce6c7981cf5cb5262",
+    "content-hash": "16acab8a4ed2e0fc42a20e019ea1539b",
     "packages": [
         {
             "name": "doctrine/instantiator",
@@ -1710,6 +1710,40 @@
                 "validate"
             ],
             "time": "2016-11-23T20:04:58+00:00"
+        },
+        {
+            "name": "workerman/gateway-worker",
+            "version": "v3.0.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/walkor/GatewayWorker.git",
+                "reference": "bc6513534d12bc6891a2e7dd00f0b8fa450c44dc"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/walkor/GatewayWorker/zipball/bc6513534d12bc6891a2e7dd00f0b8fa450c44dc",
+                "reference": "bc6513534d12bc6891a2e7dd00f0b8fa450c44dc",
+                "shasum": ""
+            },
+            "require": {
+                "workerman/workerman": ">=3.1.8"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "GatewayWorker\\": "./src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "homepage": "http://www.workerman.net",
+            "keywords": [
+                "communication",
+                "distributed"
+            ],
+            "time": "2017-03-04T10:06:20+00:00"
         },
         {
             "name": "workerman/workerman",

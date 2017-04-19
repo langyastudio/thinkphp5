@@ -48,6 +48,10 @@ class ComposerStaticInit96a73aea62b1f1d5243690f8990d83ef
         array (
             'Phinx\\' => 6,
         ),
+        'G' => 
+        array (
+            'GatewayWorker\\' => 14,
+        ),
         'D' => 
         array (
             'Doctrine\\Instantiator\\' => 22,
@@ -126,6 +130,10 @@ class ComposerStaticInit96a73aea62b1f1d5243690f8990d83ef
         'Phinx\\' => 
         array (
             0 => __DIR__ . '/..' . '/topthink/think-migration/phinx/src/Phinx',
+        ),
+        'GatewayWorker\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/workerman/gateway-worker/src',
         ),
         'Doctrine\\Instantiator\\' => 
         array (
