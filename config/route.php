@@ -40,6 +40,9 @@ return [
 		'[api]' 	=> [
 				':control/:action'	=> 'api/:control/:action'
 		],
+		'[server]' 	=> [
+				':control/:action'	=> 'server/:control/:action'
+		],
 		// control -> action
 		//多级
 		'base/:c/:a'		=> 'home/base.:c/:a',
