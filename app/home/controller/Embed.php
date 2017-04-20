@@ -25,9 +25,4 @@ class Embed
 	{
 		return view('embed/Jplayer');
 	}
-
-	public function VideoJs()
-	{
-		return view('embed/VideoJs');
-	}
 }
