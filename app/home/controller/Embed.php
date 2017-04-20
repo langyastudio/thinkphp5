@@ -15,14 +15,14 @@ class Embed
 		return view('embed/Pic', $data);
     }
 
-	public function SewiseVideo($fid='')
-	{
-		$data = ['fid' => $fid];
-		return view('embed/SewiseVideo', $data);
-	}
-
 	public function Jplayer()
 	{
 		return view('embed/Jplayer');
+	}
+
+	public function Jwplayer($fid='')
+	{
+		$data = ['fid' => $fid];
+		return view('embed/Jwplayer', $data);
 	}
 }

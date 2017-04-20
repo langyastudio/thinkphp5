@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
+	<title>Jwplayer</title>
+
+	<style>
+		body, html, iframe {
+			width            : 100%;
+			height           : 100%;
+			margin           : 0;
+			padding          : 0;
+			background-color : #000;
+			overflow         : hidden
+		}
+	</style>
+</head>
+
+<body onKeyDown="KeyOn_Space(event);">
+<input id="fid" type="hidden" value="{$fid}">
+<div id="myElement">Loading the player...</div>
+
+<script type="text/javascript" src="/public/assets/jwplayer/jwplayer.js"></script>
+<script type="text/javascript">
+	jwplayer.logo = "/public/assets/jwplayer/logo.png";
+	jwplayer.url  = "http://hacfin.com";
+
+	jwplayer("myElement").setup({
+//		file: "/public/res/ppt.mp4",
+		levels: [
+			{bitrate: 500, label: "标清", file: "/public/res/ppt.mp4"},
+			{bitrate: 1500, label: "高清", file: "/public/res/blackboard.mp4"},
+		],
+		provider: "http","http.startparam":"starttime",
+
+//		provider: "rtmp",
+//		streamer: "rtmp://rtmp.example.com/application/"
+
+		events: {
+			onReady: function () {
+				var offset = 0;
+				jwplayer().seek(offset);
+			},
+			onTime: function () {
+			 	var pos = jwplayer().getPosition();
+			 	console.log(pos)
+			}
+		},
+
+		flashplayer : "/public/assets/jwplayer/jwplayer.flash.swf",
+		image       : "/public/assets/jwplayer/player.jpg",
+		skin        : "/public/assets/jwplayer/skins/bekle.xml",
+		bufferlength: 5,
+		title       : 'Hacfin',
+		description : "http://hacfin.com",
+		controlbar: "over",  //控制条位置
+		screencolor: "#fff",   //播放器颜色
+		stretching : "fill",   //画面自适应
+//		repeat     : "always", //重复播放
+		autostart  : true,     //自动播放
+		height     : "600",
+		width      : "800",
+		aspectratio: "16:9",
+
+//		tracks: [{
+//		  file: "video.txt",
+//		  //kind: "chapters"   //时间轴说明
+//		  kind: "captions"     //字幕
+//		}],
+
+//		captions: {            //字幕设置
+//		 color: "#FF0000",
+//		 fontSize: 24,
+//		 backgroundOpacity: 50
+//		},
+
+//		playlist: [
+//		 { duration: 32, title: "Sintel Trailer1", description: "SintSintelel Trailer1", file: "video.mp4", image:"player.jpg"},
+//		 { duration: 124, title: "Sintel Trailer2", description: "SSintelintel Trailer2",  file: "video.mp4", image:"player.jpg"},
+//		 { duration: 542, title: "Sintel Trailer3", description: "SiSintelntel Trailer3",  file: "video.mp4", image:"player.jpg"}
+//		],
+
+//		listbar: {
+//		 position: "right",
+//		 size: 240
+//		},
+
+//		plugins: {
+//		 hd: { file:  "/videos.mp4", fullscreen: true },
+//		 gapro: { accountid:  "UKsi93X940-24" }
+//		},
+
+//		//modes配置项被用来指定渲染播放器不同浏览器技术的顺序
+//		modes: [
+//			{type: 'html5'},
+//			{type: 'flash', 'src': '/public/assets/jwplayer/jwplayer.flash.swff'},
+//			{type: 'download'}
+//		],
+	});
+
+	//JW Player 空格控制播放暂停 <body onKeyDown="KeyOn_Space(event);">
+	function KeyOn_Space(ev) {
+		ev       = ev || window.event;
+		var code = (ev.keyCode || ev.which);
+		if (code == 32) {
+			jwplayer('myElement').pause();
+		}
+	}
+</script>
+</body>
+
+</html>
