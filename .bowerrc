@@ -1,0 +1,7 @@
+{
+  //配置文件下载地址（一般只配置这个就可以）
+  "directory": "public/assets",
+  //设置请求超时时间
+  "timeout": 120000,
+  "json": "bower.json"
+}
