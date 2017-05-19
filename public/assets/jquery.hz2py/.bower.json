@@ -1,0 +1,13 @@
+{
+  "name": "jquery.hz2py",
+  "homepage": "https://github.com/Livhb/jQuery.Hz2Py-min.js",
+  "_release": "3873370e60",
+  "_resolution": {
+    "type": "branch",
+    "branch": "master",
+    "commit": "3873370e60c89ea28358b91632d392289e49a155"
+  },
+  "_source": "https://github.com/Livhb/jQuery.Hz2Py-min.js.git",
+  "_target": "*",
+  "_originalSource": "https://github.com/Livhb/jQuery.Hz2Py-min.js.git"
+}

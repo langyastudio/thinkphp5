@@ -1,0 +1,31 @@
+{
+  "name": "jquery.hash",
+  "version": "1.0.0",
+  "description": "jquery.hash 监听、设置、获取hash",
+  "keywords": [
+    "jquery",
+    "yquery",
+    "ydr",
+    "location",
+    "hashchange",
+    "hash"
+  ],
+  "author": {
+    "name": "cloudcome",
+    "email": "cloudcome@163.com",
+    "url": "http://ydr.me"
+  },
+  "homepage": "http://spmjs.io/docs/jquery.hash/",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/cloudcome/jquery.hash"
+  },
+  "bugs": {
+    "url": "https://github.com/cloudcome/jquery.hash/issues"
+  },
+  "licenses": "MIT",
+  "spm": {
+    "main": "jquery.hash.js",
+    "dependencies": {}
+  }
+}

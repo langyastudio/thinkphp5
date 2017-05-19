@@ -58,11 +58,6 @@
 
 #三、修改说明
 ### public/assets/jwplayer
-
-### public/assets/krpano/
-
-### public/assets/layer/
-1. layer使用自定义皮肤
-
-### public/assets/laypage/skin/laypage.css
-1. laypage使用自定义皮肤
+### public/assets/krpano
+### public/assets/layer
+### public/assets/laypage
