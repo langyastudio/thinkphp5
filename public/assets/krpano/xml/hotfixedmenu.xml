@@ -1,0 +1,45 @@
+<krpano>
+
+	<!-- control buttons -->
+	<style name="btn_panorama" 	 url="%SWFPATH%/xml/skin/panorama.jpg" 	 scale="0.5" align="lefttop" />
+	<style name="btn_PPT" 		 url="%SWFPATH%/xml/skin/PPT.jpg" 		 scale="0.5" align="lefttop" />
+	<style name="btn_blackboard" url="%SWFPATH%/xml/skin/blackboard.jpg" scale="0.5" align="lefttop" />
+
+	<layer name="hotfixedmenu" type="container" width="80" height="40" align="bottomright" x="0" scalechildren="true" scale="1.0" keep="true">
+		<!--<layer name="btn_blackboard"  y="-80"   style="btn_blackboard" 	onclick="" />-->
+		<!--<layer name="btn_PPT"      	  y="-125"  style="btn_PPT" 			onclick="" />-->
+		<!--<layer name="btn_blackboard"  y="-150"  style="button_blackboard" 	onclick="" />-->
+		<!--<layer name="btn_blackboard2" y="-195"  style="button_blackboard" 	onclick="" />-->
+	</layer>
+
+	<!-- no fullscreen support => no fullscreen button => smaller container width -->
+	<layer name="hotfixedmenu" width="320" devices="mobile" />
+
+	<!--添加热点
+        %1 - 名称
+        %2 - y坐标
+        %3 - onclick 事件
+    -->
+	<action name="hotfixed_add">
+		<!--when the content of a variable should be used - then the get() action must be used to resolve the variable!-->
+		txtadd(hf, 'btn_', %1);
+
+		if(layer[get(hf)],
+		trace('hotfixed_add - there is already a hf!'-);
+		,
+
+		addlayer(get(hf));
+		set(layer[get(hf)].parent, layer[hotfixedmenu]);
+		set(layer[get(hf)].name, get(hf));
+
+		if(('%1' != null) AND ('%1' == 'PPT' OR '%1' == 'blackboard'),
+			layer[get(hf)].loadstyle(get(hf));
+		);
+
+		set(layer[get(hf)].y, %2);
+		set(layer[get(hf)].onclick, %3);
+
+		);
+	</action>
+
+</krpano>

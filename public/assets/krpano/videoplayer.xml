@@ -1,0 +1,172 @@
+<krpano logkey="false" debugmode="false">
+
+    <!--右键菜单-->
+    <contextmenu fullscreen="true" versioninfo="false">
+        <item name="fullscreen"
+              caption="华科飞扬"
+              enabled="true"
+              visible="true"
+              separator="false"
+              onclick="openurl(http://hacfin.com);"
+        />
+    </contextmenu>
+
+    <!-- 全景播放器UI -->
+    <include url="%SWFPATH%/xml/skin/videointerface.xml"/>
+
+    <!-- hotspot -->
+    <include url="%SWFPATH%/xml/hotspot.xml"/>
+
+    <!-- 模态框视频播放（layer） -->
+    <include url="%SWFPATH%/xml/video-player.xml"/>
+
+    <!-- 固定菜单（layer） -->
+    <include url="%SWFPATH%/xml/hotfixedmenu.xml"/>
+
+    <!-- 绝对位置 -->
+    <plugin name="abs"
+            keep="true"
+            url.flash="%SWFPATH%/plugins/abs.swf"
+            url.html5="%SWFPATH%/plugins/abs.js"
+    />
+
+    <!-- allow access to the server files (for Flash) -->
+    <!--<security>-->
+        <!--<crossdomainxml url="http://krpano.com/tours/corfu/panos/achilleion-hof-unten.tiles/crossdomain.xml" />-->
+    <!--</security>-->
+
+    <!-- 启动检测 -->
+    <action name="startup" autorun="onstart">
+        if(device.panovideosupport == false, error('&#x60A8;&#x5F53;&#x524D;&#x7684;&#x6D4F;&#x89C8;&#x5668;&#x4E0D;&#x652F;&#x6301;&#x5168;&#x666F;&#x89C6;&#x9891;&#xFF01;'););
+    </action>
+
+    <!-- 视角 -->
+    <view hlookat="0" vlookat="20"
+          vlookatmax="0" vlookatmin="20" limitview="range"
+          fovtype="MFOV"
+          fov="90" fovmin="90" fovmax="90"
+    />
+
+     <!--全景视频播放插件-->
+     <!--videourl.no-ios="video/video-1920x960.mp4|video/video-1920x960.webm"-->
+     <!--videourl.ios="video/video-1024x512.mp4"-->
+    <plugin name="video"
+            url.html5="%SWFPATH%/plugins/videoplayer.js"
+            url.flash="%SWFPATH%/plugins/videoplayer.swf"
+            posterurl="%SWFPATH%/xml/skin/loading.jpg"
+            pausedonstart="false"
+            loop="true"
+            enabled="true"
+            volume="1.0"
+            zorder="0"
+            align="center" ox="0" oy="0"
+            panovideo="true"
+            width.no-panovideosupport="100%"
+            height.no-panovideosupport="prop"
+            littleplanetintro="false"
+            onloaded="js( HacfinPano_Init() )"
+    />
+
+    <!-- 添加全景素材
+        %1 分辨率名称
+        %2 文件URL
+    -->
+    <action name="add_panovideo">
+        videointerface_addsource('%1', '%2');
+    </action>
+
+    <!-- 播放全景素材
+        %1 分辨率名称
+    -->
+    <action name="play_panovideo">
+        videointerface_play(%1);
+    </action>
+
+    <!-- 添加热点
+        %1 热点名称
+        %2 x绝对坐标
+        %3 y绝对坐标
+        %4 图标
+        %5 热点URL
+    -->
+    <!-- 【bug】延迟2秒后再调用，后期可能会产生bug。为了解决全景视频可能还没加载，导致plugin[abs].get_width获取失败的问题-->
+    <action name="add_hotspot">
+        <!--showlog(true);-->
+
+        delayedcall( 2,
+
+        <!--绝对的宽高-->
+        plugin[abs].get_width(abswidth, video);
+        plugin[abs].get_height(absheight, video);
+
+        <!--将绝对的x\y坐标换算成h v-->
+        set(h, %2);
+        div(h, abswidth);
+        sub(h, 0.5);
+        mul(h, h, 360);
+        roundval(h);
+
+        set(v, %3);
+        div(v, absheight);
+        sub(v, 0.5);
+        mul(v, v, 32);
+        roundval(v);
+
+        hotspot_add(%1, get(h), get(v), %4, "videoplayer_open('%5', '%SWFPATH%/xml/skin/loading.png',  get(plugin[video].time));" );
+
+        <!--板书修正为blackboard-->
+        if(('%1' == '板书') OR ('%1' == 'blackboard'),
+        hotfixed_add(blackboard, -80, "videoplayer_open('%5', '%SWFPATH%/xml/skin/loading.png',  get(plugin[video].time));"),
+        hotfixed_add(%1, -125, "videoplayer_open('%5', '%SWFPATH%/xml/skin/loading.png',  get(plugin[video].time));")
+        );
+
+        );
+    </action>
+
+    <!-- 全景图，圆柱型全景图（CYLINDER）-->
+    <image type="CYLINDER" hfov="360">
+        <cylinder url="plugin:video"/>
+    </image>
+
+    <!--&lt;!&ndash;【插件】鼠标双击&ndash;&gt;-->
+    <!--<plugin name="dblclick"-->
+            <!--url.flash="%SWFPATH%/plugins/dblclick.swf"-->
+            <!--url.html5="%SWFPATH%/plugins/dblclick.js"-->
+            <!--keep="true"-->
+            <!--ondblclick="swichvideosrc();"-->
+    <!--/>-->
+
+    <!--&lt;!&ndash;素材切换&ndash;&gt;-->
+    <!--<action name="swichvideosrc">-->
+        <!--&lt;!&ndash;屏幕坐标转球面坐标&ndash;&gt;-->
+        <!--screentosphere(mouse.x, mouse.y, h, v);-->
+        <!--trace("abs hv: ", h, ' ', v);-->
+
+        <!--&lt;!&ndash;绝对的宽高&ndash;&gt;-->
+        <!--plugin[abs].get_width(abswidth, video);-->
+        <!--plugin[abs].get_height(absheight, video);-->
+        <!--trace("abs wh: ", abswidth, ' ', absheight);-->
+
+        <!--&lt;!&ndash;将坐标线性映射到球面全景&ndash;&gt;-->
+        <!--&lt;!&ndash;h 360度 v 32度&ndash;&gt;-->
+        <!--div(px, h, 360);-->
+        <!--add(px, 0.5);-->
+        <!--mul(px, abswidth);-->
+        <!--roundval(px);-->
+
+        <!--div(py, v, 32);-->
+        <!--add(py, 0.5);-->
+        <!--mul(py, absheight);-->
+        <!--roundval(py);-->
+
+        <!--trace("hv : ", h, ' ', v);-->
+        <!--trace("pos : ", px, ' ', py);-->
+
+        <!--&lt;!&ndash;判断播放哪个视频&ndash;&gt;-->
+        <!--if((abswidth LT 1920), videointerface_play('全景4K'));-->
+        <!--if((px GT 2340) AND (px LT 2580) AND (py GT 80) AND (py LT 230), videoplayer_open('/Public/res/ppt.mp4'));-->
+        <!--if((px GT 2670) AND (px LT 2900) AND (py GT 80) AND (py LT 230),-->
+        <!--videoplayer_open('/Public/res/blackboard.mp4'));-->
+    <!--</action>-->
+
+</krpano>
