@@ -14,10 +14,10 @@
 	Hacfin.JWPlayer = {
 		/**
 		 * @param el                HTML元素id名称
-		 * @param fid                文件id号
+		 * @param fid               文件id号
 		 * @param resolution        低分辨率地址
-		 * @param high_resolution    高分辨率地址
-		 * @param bIsLive            是否是直播
+		 * @param high_resolution   高分辨率地址
+		 * @param bIsLive           是否是直播
 		 */
 		Setup      : function (el, fid, resolution, high_resolution, bIsLive) {
 			jwplayer.logo = "/public/assets/jwplayer/logo.png";
@@ -39,24 +39,38 @@
 				width       : "100%",
 				aspectratio : "16:9",
 
-				//modes配置项被用来指定渲染播放器不同浏览器技术的顺序
+				//【1】modes配置项被用来指定渲染播放器不同浏览器技术的顺序
 				modes: [
 					{type: 'html5'},
 					{type: 'flash', 'src': '/public/assets/jwplayer/jwplayer.flash.swf'},
 					{type: 'download'}
-				]
+				],
 
-				//		tracks: [{
-				//		  file: "video.txt",
-				//		  //kind: "chapters"   //时间轴说明
-				//		  kind: "captions"     //字幕
-				//		}],
-
-				//		captions: {            //字幕设置
-				//		 color: "#FF0000",
-				//		 fontSize: 24,
-				//		 backgroundOpacity: 50
-				//		},
+				//【2】字幕-知识点
+				tracks  : [
+					//【2.1】字幕
+					{
+						file     : "/public/res/subtitle.srt",
+						label    : "Chinese",
+						kind     : "captions",
+						"default": true
+					},
+					{
+						file : "/public/res/subtitle.srt",
+						label: "English",
+						kind : "captions"
+					},
+					//【2.2】知识点
+					{
+						file : "/public/res/knowledge.vtt",
+						kind : "chapters"
+					}
+				],
+				captions: {
+					back    : false,
+					color   : "#FFFF00",
+					fontSize: 20
+				}
 
 				//		playlist: [
 				//		 { duration: 32, title: "Sintel Trailer1", description: "SintSintelel Trailer1", file: "video.mp4", image:"player.jpg"},
