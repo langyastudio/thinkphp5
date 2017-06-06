@@ -27,7 +27,14 @@
         "topthink/think-worker": "^1.0",
         "topthink/think-queue": "^1.0",
         "topthink/think-testing": "^1.0",
-        "workerman/gateway-worker": "~3.0"
+        "workerman/gateway-worker": "~3.0",
+        "overtrue/pinyin": "~3.0",
+        "swiftmailer/swiftmailer": "~5.0",
+        "pclzip/pclzip": "~2.0",
+        "mobiledetect/mobiledetectlib": "~2.0",
+        "joyqi/hyper-down": "dev-master",
+        "mtdowling/cron-expression": "~1.0",
+        "ezyang/htmlpurifier": "~4.0"
     },
     "extra": {
         "think-path": "thinkphp"

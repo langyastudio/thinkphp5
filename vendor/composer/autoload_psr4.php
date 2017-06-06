@@ -23,6 +23,9 @@ return array(
     'Symfony\\Component\\Yaml\\' => array($vendorDir . '/symfony/yaml'),
     'Symfony\\Component\\DomCrawler\\' => array($vendorDir . '/symfony/dom-crawler'),
     'Phinx\\' => array($vendorDir . '/topthink/think-migration/phinx/src/Phinx'),
+    'Overtrue\\Pinyin\\' => array($vendorDir . '/overtrue/pinyin/src'),
+    'HyperDown\\' => array($vendorDir . '/joyqi/hyper-down'),
     'GatewayWorker\\' => array($vendorDir . '/workerman/gateway-worker/src'),
     'Doctrine\\Instantiator\\' => array($vendorDir . '/doctrine/instantiator/src/Doctrine/Instantiator'),
+    'Cron\\' => array($vendorDir . '/mtdowling/cron-expression/src/Cron'),
 );
