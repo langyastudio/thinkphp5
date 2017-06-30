@@ -12,4 +12,9 @@ class Mratchet
 	{
 		return view('mratchet/index');
 	}
+
+	public function Index2()
+	{
+		return view('mratchet/index2');
+	}
 }
