@@ -10,6 +10,6 @@ class AMap
 {
     public function GeoCoder()
     {
-       return view('amap/GeoCoder');
+       return view('amap/geocoder');
     }
 }

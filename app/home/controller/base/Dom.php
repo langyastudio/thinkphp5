@@ -10,11 +10,11 @@ class Dom
 {
     public function Document()
     {
-		return view('dom/Document');
+		return view('dom/document');
     }
 
     public function Navigator()
     {
-		return view('dom/Navigator');
+		return view('dom/navigator');
     }
 }

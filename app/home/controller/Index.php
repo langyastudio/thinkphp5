@@ -29,7 +29,7 @@ class Index extends Controller
 		$data = ['title' => 'ThinkPHP5.0'];
 
 		// [模块@][控制器/][操作]
-		return view('index/Index', $data);
+		return view('index/index', $data);
 	}
 
 
@@ -52,7 +52,7 @@ class Index extends Controller
 	// 重定向
 	public function PageRedirect()
 	{
-		$this->redirect('Index/index');
+		$this->redirect('index/index');
 	}
 
 	// 请求

@@ -6,10 +6,10 @@ namespace app\home\controller;
  *
  * @package app\home\controller
  */
-class Socket
+class Mratchet
 {
-	public function WebSocket()
+	public function Index()
 	{
-		return view('socket/websocket');
+		return view('mratchet/index');
 	}
 }

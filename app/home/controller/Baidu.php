@@ -10,21 +10,21 @@ class Baidu
 {
     public function Share()
     {
-		return view('baidu/Share');
+		return view('baidu/share');
     }
 
     public function ShareSelf()
     {
-		return view('baidu/ShareSelf');
+		return view('baidu/shareself');
     }
 
     public function ShareButton()
     {
-		return view('baidu/ShareButton');
+		return view('baidu/sharebutton');
     }
 
     public function Upload()
     {
-		return view('baidu/Upload');
+		return view('baidu/upload');
     }
 }

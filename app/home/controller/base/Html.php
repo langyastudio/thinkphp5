@@ -12,16 +12,16 @@ class Html
 {
     public function AV()
     {
-		return view('html/AV');
+		return view('html/av');
     }
 
     public function Storage()
     {
-		return view('html/Storage');
+		return view('html/storage');
     }
 
 	public function Icon()
 	{
-		return view('html/Icon');
+		return view('html/icon');
 	}
 }

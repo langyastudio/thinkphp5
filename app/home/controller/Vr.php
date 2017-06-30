@@ -10,6 +10,6 @@ class Vr
 {
 	public function VR()
 	{
-		return view('vr/VR');
+		return view('vr/vr');
 	}
 }

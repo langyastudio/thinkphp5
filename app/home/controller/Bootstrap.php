@@ -10,6 +10,6 @@ class Bootstrap
 {
     public function Button()
     {
-		return view('bootstrap/Button');
+		return view('bootstrap/button');
     }
 }

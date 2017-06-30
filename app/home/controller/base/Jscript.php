@@ -10,11 +10,11 @@ class Jscript
 {
 	public function Index()
 	{
-		return view('jscript/Index');
+		return view('jscript/index');
 	}
 
 	public function Cookie()
     {
-		return view('jscript/Cookie');
+		return view('jscript/cookie');
     }
 }

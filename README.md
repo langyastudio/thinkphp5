@@ -7,7 +7,7 @@
 - 模块加载：requirejs 
 - CSS预编译器：SASS
 - 标准化样式：Normalize.css
-- 多媒体：FlowPlayer + jplayer(音频)
+- 多媒体：JWPlayer + jplayer(音频)
 - 构建工具：Gulp
 - 包管理器：bower
 
@@ -46,13 +46,13 @@
 #二、编码命名规范
 1. 英文命名，不可使用汉语拼音
 2. 所有的文件夹名，采用 **小写**
-3. app/home/controller 控制类、app/home/view 视图类，遵循 ThinkPHP 5.0 规范，所有的文件名采用 **大驼峰法**命名
-3. 所有的scss、js、public/skins目录下的文件名采用 **小写**
+3. 所有的文件名，采用 **小写**(以 .php 为后缀的除外)
 4. URL请求地址 一律 **小写**
-6. app/home/controller 控制类、
-   app/home/view 视图类、
-   public/css/sass css、
-   public/scripts js脚本，**按照控制器，形成严格的一一对应关系，文件不可乱放**
+6. - app/home/controller --> 控制类
+   - app/home/view --> 视图类
+   - public/css/sass --> css
+   - public/scripts --> js脚本   
+   **按照控制器，形成严格的一一对应关系，文件不可乱放**
 7. thinkphp、public/assets为第三方库，不可随意更改，保留源码本身的规范。
 > **如果有修改，需要在该文件中详细说明！**
 
