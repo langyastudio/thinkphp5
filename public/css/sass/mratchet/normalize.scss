@@ -1,0 +1,22 @@
+@import "compass/css3";
+
+//移动端定义字体的代码
+* {
+  font-family : "Helvetica Neue", Helvetica, Arial, "PingFang SC", "Hiragino Sans GB", "Heiti SC", sans-serif;
+}
+
+//去掉元素被点击时产生的边框/半透明灰色遮罩
+a, button, input, textarea {
+  -webkit-tap-highlight-color : rgba(0, 0, 0, 0); //IOS
+}
+
+.css {
+  -webkit-touch-callout : none; //禁止ios长按时触发系统的菜单，禁止ios&android长按时下载图片
+  -webkit-user-select:none;//禁止ios和android用户选中文字
+  //消除transition闪屏
+  -webkit-transform-style: preserve-3d; //设置内嵌的元素在 3D 空间如何呈现：保留 3D
+  -webkit-backface-visibility: hidden;//设置进行转换的元素的背面在面对用户时是否可见：隐藏
+
+  //开启硬件加速
+  @include transform(translate3d(0, 0, 0));
+}

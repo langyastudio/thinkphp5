@@ -31,7 +31,7 @@ gulp.task('compass', function() {
 				sass: 'public/css/sass'     // sass路径
 			}))
 			.pipe(gulp.dest('public/css/css'))  //输出到文件夹
-			.pipe(minifycss())                  //压缩CSS
+			.pipe(minifycss({compatibility: 'ie8'}))  //压缩CSS
 			.pipe(rename({suffix: '.min'}))     //rename压缩后的文件名
 			.pipe(gulp.dest('public/css/dist')) // 发布到线上版本
 			;
@@ -79,10 +79,10 @@ gulp.task('clean', function(cb) {
 
 //【5】监视文件的变化
 gulp.task('watch', function () {
-	gulp.watch('public/scripts/src/**/*.js', ['jshint', 'minifyjs']);
+	gulp.watch('public/scripts/src/**/*.js', ['minifyjs']);
 	gulp.watch('public/css/sass/**/*.scss', ['compass']);
 });
 
 //【6】默认命令，在cmd中输入gulp后，执行的就是这个任务(压缩js需要在检查js之后操作)
-gulp.task('default', ['jshint', 'minifyjs', 'compass', 'watch'], function () {
+gulp.task('default', ['jshint', 'compass', 'watch'], function () {
 });
