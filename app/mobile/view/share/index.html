@@ -8,15 +8,68 @@
 	<meta name='viewport' content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no'>
 
 	<title>Share</title>
+
 	<link type="text/css" rel="stylesheet" href="/public/assets/mobile/normalize.css"/>
+	<link type="text/css" rel="stylesheet" href="/public/assets/mobile/jquery/jquery.weui/lib/weui.min.css"/>
+	<link type="text/css" rel="stylesheet" href="/public/assets/mobile/jquery/jquery.weui/css/jquery-weui.min.css"/>
+
+	<script type="text/javascript" src="/public/assets/mobile/jquery/jquery.min.js"></script>
+	<script type="text/javascript" src="/public/assets/mobile/fastclick.js"></script>
+	<script type="text/javascript" src="/public/assets/mobile/jquery/jquery.weui/js/jquery-weui.min.js"></script>
 </head>
 
 <body>
-<div id="" class="weui-popup__container">
+<a href="javascript:;" class="weui-btn weui-btn_primary open-popup" data-target="#about">分享</a>
+
+<!--弹出层-->
+<div id="about" class="weui-popup__container popup-bottom" style="display: none;">
 	<div class="weui-popup__overlay"></div>
 	<div class="weui-popup__modal">
-		你的内容放在这里...
+		<!--内容-->
+		<div class="toolbar">
+			<div class="toolbar-inner">
+				<a href="javascript:;" class="picker-button close-popup">关闭</a>
+				<h1 class="title" style="margin-top: 0px">分享</h1>
+			</div>
+		</div>
+		<div class="modal-content">
+			<div class="weui-grids">
+				<a href="javascript:;" class="weui-grid js_grid" data-id="bd_zqq">
+					<div class="weui-grid__icon">
+						<img src="/public/skins/bdshares/bd_zqq.png" alt="">
+					</div>
+					<p class="weui-grid__label">
+						微信朋友圈
+					</p>
+				</a>
+				<a href="javascript:;" class="weui-grid js_grid" data-id="bd_weixin">
+					<div class="weui-grid__icon">
+						<img src="/public/skins/bdshares/bd_weixin.png" alt="">
+					</div>
+					<p class="weui-grid__label">
+						微信好友
+					</p>
+				</a>
+				<a href="javascript:;" class="weui-grid js_grid" data-id="bd_tqq">
+					<div class="weui-grid__icon">
+						<img src="/public/skins/bdshares/bd_tqq.png" alt="">
+					</div>
+					<p class="weui-grid__label">
+						QQ好友
+					</p>
+				</a>
+				<a href="javascript:;" class="weui-grid js_grid" data-id="bd_qzone">
+					<div class="weui-grid__icon">
+						<img src="/public/skins/bdshares/bd_qzone.png" alt="">
+					</div>
+					<p class="weui-grid__label">
+						QQ空间
+					</p>
+				</a>
+			</div>
+		</div>
 	</div>
 </div>
+
 </body>
 </html>
