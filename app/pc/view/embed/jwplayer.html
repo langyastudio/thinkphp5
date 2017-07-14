@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
+	<title>Jwplayer</title>
+
+	<style>
+		/*body, html, iframe {*/
+			/*width            : 100%;*/
+			/*height           : 100%;*/
+			/*margin           : 0;*/
+			/*padding          : 0;*/
+			/*background-color : #000;*/
+			/*overflow         : hidden*/
+		/*}*/
+	</style>
+</head>
+
+<body onKeyDown="KeyOn_Space(event);">
+<input id="fid" type="hidden" value="{$fid}">
+<div style="width: 800px; height: 600px;">
+	<div id="myElement" >Loading the player...</div>
+</div>
+
+<script type="text/javascript" src="/public/assets/pc/jquery/dist/jquery.min.js"></script>
+<script type="text/javascript" src="/public/scripts/src/pc/hacfin/common.js"></script>
+<script type="text/javascript" src="/public/assets/pc/jwplayer/jwplayer.js"></script>
+<script type="text/javascript" src="/public/scripts/src/pc/embed/jwplayer.js"></script>
+<script type="text/javascript">
+//	Hacfin.JWPlayer.Setup("myElement",
+//			'sadfasdfasdf',
+//			"rtmp://192.168.1.110:1936/live/test", null, true
+//			);
+
+	Hacfin.JWPlayer.Setup("myElement",
+			'sadfasdfasdf',
+			"http://192.168.1.100:8888/public/res/ppt.mp4", "http://192.168.1.100:8888/public/res/blackboard.mp4", false
+			);
+
+//	Hacfin.JWPlayer.Setup("myElement",
+//			'sadfasdfasdf',
+//			"http://192.168.1.110:8080/live/test.m3u8", null, true
+//	);
+
+	//JW Player 空格控制播放暂停 <body onKeyDown="KeyOn_Space(event);">
+	function KeyOn_Space(evt) {
+		Hacfin.JWPlayer.KeyOn_Space('myElement', evt);
+	}
+</script>
+</body>
+
+</html>

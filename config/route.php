@@ -29,31 +29,33 @@
 //		pjax				Pjax检测（V5.0.2+）
 
 return [
+		'__miss__'  => 'pc/Index/index',
+
 		// 首页
-		'/'			=> 'home/Index/index',
-		// home 模块
-		'[home]' 	=> [
+		'/'                => 'pc/Index/index',
+
+		// pc 模块
+		'[pc]'             => [
 			//多级
-			'base/:c/:a'		=> ['home/base.:c/:a'],
-			':control/:action'	=> 'home/:control/:action'
+				'base/:c/:a'       => ['pc/base.:c/:a'],
+				':control/:action' => 'pc/:control/:action'
 		],
-		'[api]' 	=> [
-				':control/:action'	=> 'api/:control/:action'
+
+		'[mobile]'         => [
+			//多级
+				':control/:action' => 'mobile/:control/:action'
 		],
-		'[server]' 	=> [
-				':control/:action'	=> 'server/:control/:action'
+
+		'[api]'            => [
+				':control/:action' => 'api/:control/:action'
 		],
+
+		'[server]'         => [
+				':control/:action' => 'server/:control/:action'
+		],
+
 		// control -> action
 		//多级
-		'base/:c/:a'		=> 'home/base.:c/:a',
-		':control/:action'	=> 'home/:control/:action',
-
-		// 全局MISS路由
-//		'__miss__'  => '/',
-
-
-//    	'[hello]'     => [
-//        	':id'   => ['index/hello', ['method' => 'get'], ['id' => '\d+']],
-//        	':name' => ['index/hello', ['method' => 'post']],
-//    	],
+		'base/:c/:a'       => 'pc/base.:c/:a',
+		':control/:action' => 'pc/:control/:action',
 ];

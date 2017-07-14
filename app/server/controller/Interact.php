@@ -5,7 +5,7 @@ use GatewayWorker\Lib\Gateway;
 /**
  * Websocket API
  *
- * @package app\home\controller
+ * @package app\pc\controller
  */
 class Interact
 {

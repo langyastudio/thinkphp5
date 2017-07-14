@@ -7,7 +7,7 @@ use think\Db;
 /**
  * Index
  *
- * @package app\home\controller
+ * @package app\pc\controller
  */
 class Dbtest extends Controller
 {

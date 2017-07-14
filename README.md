@@ -48,8 +48,8 @@
 2. 所有的文件夹名，采用 **小写**
 3. 所有的文件名，采用 **小写**(以 .php 为后缀的除外)
 4. URL请求地址 一律 **小写**
-6. - app/home/controller --> 控制类
-   - app/home/view --> 视图类
+6. - app/**/controller --> 控制类
+   - app/**/view --> 视图类
    - public/css/sass --> css
    - public/scripts --> js脚本   
    **按照控制器，形成严格的一一对应关系，文件不可乱放**

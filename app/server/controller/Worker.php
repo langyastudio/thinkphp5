@@ -5,7 +5,7 @@ use think\worker\Server;
 /**
  * Worker 长链接服务
  *
- * @package app\home\controller
+ * @package app\pc\controller
  */
 class Worker extends Server
 {

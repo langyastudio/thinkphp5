@@ -8,7 +8,7 @@ use think\Controller;
  * Index
  *
  *
- * @package app\home\controller
+ * @package app\pc\controller
  */
 class Phptest extends Controller
 {

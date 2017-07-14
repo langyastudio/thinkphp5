@@ -8,7 +8,7 @@ use think\Loader;
 /**
  * MdTest 模型测试
  *
- * @package app\home\controller
+ * @package app\pc\controller
  */
 class Mdtest extends Controller
 {
