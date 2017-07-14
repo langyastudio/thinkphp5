@@ -16,6 +16,8 @@
 	<script type="text/javascript" src="/public/assets/mobile/jquery/jquery.min.js"></script>
 	<script type="text/javascript" src="/public/assets/mobile/fastclick.js"></script>
 	<script type="text/javascript" src="/public/assets/mobile/jquery/jquery.weui/js/jquery-weui.min.js"></script>
+
+	<script src="/public/assets/mobile/jquery/jquery.share.js"></script>
 </head>
 
 <body>
@@ -34,23 +36,23 @@
 		</div>
 		<div class="modal-content">
 			<div class="weui-grids">
-				<a href="javascript:;" class="weui-grid js_grid" data-id="bd_zqq">
+				<a href="#" class="weui-grid js_grid" data-id="weibo">
+					<div class="weui-grid__icon">
+						<img src="/public/skins/bdshares/bd_tsina.png" alt="">
+					</div>
+					<p class="weui-grid__label">
+						微博
+					</p>
+				</a>
+				<a href="#" class="weui-grid js_grid" data-id="wechat">
 					<div class="weui-grid__icon">
 						<img src="/public/skins/bdshares/bd_zqq.png" alt="">
 					</div>
 					<p class="weui-grid__label">
-						微信朋友圈
+						微信
 					</p>
 				</a>
-				<a href="javascript:;" class="weui-grid js_grid" data-id="bd_weixin">
-					<div class="weui-grid__icon">
-						<img src="/public/skins/bdshares/bd_weixin.png" alt="">
-					</div>
-					<p class="weui-grid__label">
-						微信好友
-					</p>
-				</a>
-				<a href="javascript:;" class="weui-grid js_grid" data-id="bd_tqq">
+				<a href="#" class="weui-grid js_grid" data-id="qq">
 					<div class="weui-grid__icon">
 						<img src="/public/skins/bdshares/bd_tqq.png" alt="">
 					</div>
@@ -58,7 +60,7 @@
 						QQ好友
 					</p>
 				</a>
-				<a href="javascript:;" class="weui-grid js_grid" data-id="bd_qzone">
+				<a href="#" class="weui-grid js_grid" data-id="qzone">
 					<div class="weui-grid__icon">
 						<img src="/public/skins/bdshares/bd_qzone.png" alt="">
 					</div>
@@ -70,6 +72,28 @@
 		</div>
 	</div>
 </div>
+
+<script>
+	//创建分享
+	var data = {
+		source              : 'http://mooc.boolongo.com', // 来源（QQ空间会用到）, 默认读取head标签：<meta name="site" content="http://overtrue" />
+		title               : '八年级数学课', // 标题，默认读取 document.title 或者 <meta name="title" content="share.js" />
+		description         : '这是一堂非常好的课程，讲的东西很好。这是一堂非常好的课程，讲的东西很好。这是一堂非常好的课程，讲的东西很好。这是一堂非常好的课程，讲的东西很好。这是一堂非常好的课程，讲的东西很好。', // 描述, 默认读取head标签：<meta name="description" content="PHP弱类型的实现原理分析" />
+		image               : 'http://192.168.1.100:8888/public/skins/bdshares/bd_qzone.png', // 图片, 默认取网页中第一个img标签
+		sites               : ['qzone', 'qq', 'weibo','wechat'], // 启用的站点
+		disabled            : ['google', 'facebook', 'twitter'], // 禁用的站点
+		wechatQrcodeTitle   : "微信扫一扫：分享", // 微信二维码提示文字
+		wechatQrcodeHelper  : '<p>微信里点“发现”，扫一下</p><p>二维码便可将本文分享至朋友圈。</p>',
+	};
+
+	$(".weui-grids").share(data);
+
+	$(".js_grid").each(function (i) {
+
+
+		$(this).data("id")
+	});
+</script>
 
 </body>
 </html>
