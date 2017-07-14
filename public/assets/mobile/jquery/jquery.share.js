@@ -1,6 +1,7 @@
 /**
  * Share.js
  *
+ * @link 	http://overtrue.me/share.js
  * @author  overtrue <i@overtrue.me>
  * @license MIT
  *
@@ -17,7 +18,73 @@
  * </pre>
  */
 ;(function($){
-    /**
+	//Hacfin
+	var $_share_templates = {
+		qzone       : 'http://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url={{URL}}&title={{TITLE}}&desc={{DESCRIPTION}}&summary={{SUMMARY}}&site={{SOURCE}}',
+		qq          : 'http://connect.qq.com/widget/shareqq/index.html?url={{URL}}&title={{TITLE}}&source={{SOURCE}}&desc={{DESCRIPTION}}&pics={{IMAGE}}',
+		tencent     : 'http://share.v.t.qq.com/index.php?c=share&a=index&title={{TITLE}}&url={{URL}}&pic={{IMAGE}}',
+		weibo       : 'http://service.weibo.com/share/share.php?url={{URL}}&title={{TITLE}}&pic={{IMAGE}}&appkey={{WEIBOKEY}}',
+		wechat      : 'javascript:;',
+		douban      : 'http://shuo.douban.com/!service/share?href={{URL}}&name={{TITLE}}&text={{DESCRIPTION}}&image={{IMAGE}}&starid=0&aid=0&style=11',
+		diandian    : 'http://www.diandian.com/share?lo={{URL}}&ti={{TITLE}}&type=link',
+		linkedin    : 'http://www.linkedin.com/shareArticle?mini=true&ro=true&title={{TITLE}}&url={{URL}}&summary={{SUMMARY}}&source={{SOURCE}}&armin=armin',
+		facebook    : 'https://www.facebook.com/sharer/sharer.php?u={{URL}}&title={{TITLE}}&description={{DESCRIPTION}}&caption={{SUBHEAD}}&link={{URL}}&picture={{IMAGE}}',
+		twitter     : 'https://twitter.com/intent/tweet?text={{TITLE}}&url={{URL}}&via={{SITE_URL}}',
+		google      : 'https://plus.google.com/share?url={{URL}}'
+	};
+
+	//Hacfin
+	/**
+	 * Build the url of icon.
+	 *
+	 * @param {String} $name
+	 * @param {Object} $data
+	 *
+	 * @return {String}
+	 */
+	$.fn.share_makeurl = function ($name, $data) {
+		var $template = $_share_templates[$name];
+		$data['summary'] = $data['description'];
+
+		for (var $key in $data) {
+			if ($data.hasOwnProperty($key)) {
+				var $camelCaseKey = $name + $key.replace(/^[a-z]/, function($str){
+							return $str.toUpperCase();
+						});
+
+				var $value = encodeURIComponent($data[$camelCaseKey] === undefined ? $data[$key] : $data[$camelCaseKey]);
+				$template = $template.replace(new RegExp('{{'+$key.toUpperCase()+'}}', 'g'), $value);
+			}
+		}
+
+		return $template;
+	};
+
+	/**
+	 * Create the wechat icon and QRCode.
+	 *
+	 * @param {Object|String} $container
+	 * @param {Object}        $data
+	 */
+	$.fn.share_createWechat = function ($container, $data) {
+		var $wechat = $container.find('a.icon-wechat');
+
+		share_generateWechat($wechat, data);
+	};
+
+	$.fn.share_generateWechat = function ($wechat, $data) {
+		if (!$wechat.length) {return;}
+
+		$wechat.append('<div class="wechat-qrcode"><h4>'+$data.wechatQrcodeTitle+'</h4><div class="qrcode"></div><div class="help">'+$data.wechatQrcodeHelper+'</div></div>');
+
+		$wechat.find('.qrcode').qrcode({render: 'image', size: $data.wechatQrcodeSize, text: $data.url});
+
+		if ($wechat.offset().top < 100) {
+			$wechat.find('.wechat-qrcode').addClass('bottom');
+		}
+	};
+
+	/**
      * Initialize a share bar.
      *
      * @param {Object}        $options globals (optional).
@@ -50,20 +117,6 @@
 
         var $globals = $.extend({}, $defaults, $options);
 
-        var $templates = {
-            qzone       : 'http://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url={{URL}}&title={{TITLE}}&desc={{DESCRIPTION}}&summary={{SUMMARY}}&site={{SOURCE}}',
-            qq          : 'http://connect.qq.com/widget/shareqq/index.html?url={{URL}}&title={{TITLE}}&source={{SOURCE}}&desc={{DESCRIPTION}}&pics={{IMAGE}}',
-            tencent     : 'http://share.v.t.qq.com/index.php?c=share&a=index&title={{TITLE}}&url={{URL}}&pic={{IMAGE}}',
-            weibo       : 'http://service.weibo.com/share/share.php?url={{URL}}&title={{TITLE}}&pic={{IMAGE}}&appkey={{WEIBOKEY}}',
-            wechat      : 'javascript:;',
-            douban      : 'http://shuo.douban.com/!service/share?href={{URL}}&name={{TITLE}}&text={{DESCRIPTION}}&image={{IMAGE}}&starid=0&aid=0&style=11',
-            diandian    : 'http://www.diandian.com/share?lo={{URL}}&ti={{TITLE}}&type=link',
-            linkedin    : 'http://www.linkedin.com/shareArticle?mini=true&ro=true&title={{TITLE}}&url={{URL}}&summary={{SUMMARY}}&source={{SOURCE}}&armin=armin',
-            facebook    : 'https://www.facebook.com/sharer/sharer.php?u={{URL}}&title={{TITLE}}&description={{DESCRIPTION}}&caption={{SUBHEAD}}&link={{URL}}&picture={{IMAGE}}',
-            twitter     : 'https://twitter.com/intent/tweet?text={{TITLE}}&url={{URL}}&via={{SITE_URL}}',
-            google      : 'https://plus.google.com/share?url={{URL}}'
-        };
-
         var $ariaLabels = {
             qzone: "QQ空间",
             qq: "QQ",
@@ -92,7 +145,7 @@
             var $container = $(this).addClass('share-component social-share');
 
             createIcons($container, $data);
-            createWechat($container, $data);
+			share_createWechat($container, $data);
 
             $(this).data('initialized', true);
         });
@@ -111,7 +164,7 @@
             if (!$sites.length) {return;}
 
             $.each($sites, function (i, $name) {
-                var $url  = makeUrl($name, $data);
+                var $url  = share_makeurl($name, $data);
                 var $link = $data.initialized ? $container.find('.icon-'+$name) : $('<a class="social-share-icon icon-'+$name+'"></a>');
 
                 if (!$link.length) {
@@ -131,26 +184,6 @@
                     $data.mode == 'prepend' ? $container.prepend($link) : $container.append($link);
                 }
             });
-        }
-
-        /**
-         * Create the wechat icon and QRCode.
-         *
-         * @param {Object|String} $container
-         * @param {Object}        $data
-         */
-        function createWechat ($container, $data) {
-            var $wechat = $container.find('a.icon-wechat');
-
-            if (!$wechat.length) {return;}
-
-            $wechat.append('<div class="wechat-qrcode"><h4>'+$data.wechatQrcodeTitle+'</h4><div class="qrcode"></div><div class="help">'+$data.wechatQrcodeHelper+'</div></div>');
-
-            $wechat.find('.qrcode').qrcode({render: 'image', size: $data.wechatQrcodeSize, text: $data.url});
-
-            if ($wechat.offset().top < 100) {
-                $wechat.find('.wechat-qrcode').addClass('bottom');
-            }
         }
 
         /**
@@ -183,32 +216,6 @@
             });
 
             return $sites;
-        }
-
-        /**
-         * Build the url of icon.
-         *
-         * @param {String} $name
-         * @param {Object} $data
-         *
-         * @return {String}
-         */
-        function makeUrl ($name, $data) {
-            var $template = $templates[$name];
-            $data['summary'] = $data['description'];
-
-            for (var $key in $data) {
-                if ($data.hasOwnProperty($key)) {
-                    var $camelCaseKey = $name + $key.replace(/^[a-z]/, function($str){
-                        return $str.toUpperCase();
-                    });
-
-                    var $value = encodeURIComponent($data[$camelCaseKey] === undefined ? $data[$key] : $data[$camelCaseKey]);
-                    $template = $template.replace(new RegExp('{{'+$key.toUpperCase()+'}}', 'g'), $value);
-                }
-            }
-
-            return $template;
         }
 
         /**

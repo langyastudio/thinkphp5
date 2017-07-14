@@ -7,7 +7,8 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	<meta name='viewport' content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no'>
 
-	<title>Share</title>
+	<!--微信APP分享的识别-->
+	<title>八年级数学课</title>
 
 	<link type="text/css" rel="stylesheet" href="/public/assets/mobile/normalize.css"/>
 	<link type="text/css" rel="stylesheet" href="/public/assets/mobile/jquery/jquery.weui/lib/weui.min.css"/>
@@ -18,13 +19,14 @@
 	<script type="text/javascript" src="/public/assets/mobile/jquery/jquery.weui/js/jquery-weui.min.js"></script>
 
 	<script src="/public/assets/mobile/jquery/jquery.share.js"></script>
+	<script src="/public/assets/mobile/jquery/jquery.qrcode.min.js"></script>
 </head>
 
 <body>
-<a href="javascript:;" class="weui-btn weui-btn_primary open-popup" data-target="#about">分享</a>
 
+<a href="javascript:;" class="weui-btn weui-btn_primary open-popup" data-target="#share">分享</a>
 <!--弹出层-->
-<div id="about" class="weui-popup__container popup-bottom" style="display: none;">
+<div id="share" class="weui-popup__container popup-bottom" style="display: none;">
 	<div class="weui-popup__overlay"></div>
 	<div class="weui-popup__modal">
 		<!--内容-->
@@ -44,7 +46,7 @@
 						微博
 					</p>
 				</a>
-				<a href="#" class="weui-grid js_grid" data-id="wechat">
+				<a href="#" class="weui-grid js_grid open-popup" data-id="wechat" data-target="#wechat">
 					<div class="weui-grid__icon">
 						<img src="/public/skins/bdshares/bd_zqq.png" alt="">
 					</div>
@@ -73,25 +75,45 @@
 	</div>
 </div>
 
+<div id="wechat" class="weui-popup__container">
+	<div class="weui-popup__overlay"></div>
+	<div class="weui-popup__modal">
+		<!--内容-->
+		<div class="toolbar">
+			<div class="toolbar-inner">
+				<a href="javascript:;" class="picker-button close-popup">关闭</a>
+				<h1 class="title" style="margin-top: 0px">分享</h1>
+			</div>
+		</div>
+		<div class="modal-content generate-wechat" style="margin: 0 auto; text-align: center;margin-top: 15%">
+		</div>
+	</div>
+</div>
+
 <script>
-	//创建分享
-	var data = {
-		source              : 'http://mooc.boolongo.com', // 来源（QQ空间会用到）, 默认读取head标签：<meta name="site" content="http://overtrue" />
-		title               : '八年级数学课', // 标题，默认读取 document.title 或者 <meta name="title" content="share.js" />
-		description         : '这是一堂非常好的课程，讲的东西很好。这是一堂非常好的课程，讲的东西很好。这是一堂非常好的课程，讲的东西很好。这是一堂非常好的课程，讲的东西很好。这是一堂非常好的课程，讲的东西很好。', // 描述, 默认读取head标签：<meta name="description" content="PHP弱类型的实现原理分析" />
-		image               : 'http://192.168.1.100:8888/public/skins/bdshares/bd_qzone.png', // 图片, 默认取网页中第一个img标签
-		sites               : ['qzone', 'qq', 'weibo','wechat'], // 启用的站点
-		disabled            : ['google', 'facebook', 'twitter'], // 禁用的站点
-		wechatQrcodeTitle   : "微信扫一扫：分享", // 微信二维码提示文字
-		wechatQrcodeHelper  : '<p>微信里点“发现”，扫一下</p><p>二维码便可将本文分享至朋友圈。</p>',
-	};
+	$(function () {
 
-	$(".weui-grids").share(data);
+		//创建分享
+		var data = {
+			url               : location.href,
+			site_url          : location.origin,
+			source            : 'http://mooc.boolongo.com', // 来源（QQ空间会用到）, 默认读取head标签：<meta name="site" content="http://mooc.boolongo.com" />
+			title             : '八年级数学课', // 标题，默认读取 document.title 或者 <meta name="title" content="八年级数学课" />
+			description       : '这是一堂非常好的课程，讲的东西很好。这是一堂非常好的课程，讲的东西很好。这是一堂非常好的课程，讲的东西很好。这是一堂非常好的课程，讲的东西很好。这是一堂非常好的课程，讲的东西很好。', // 描述, 默认读取head标签：<meta name="description" content="PHP弱类型的实现原理分析" />
+			image             : 'http://192.168.1.100:8888/public/skins/bdshares/bd_qzone.png', // 图片, 默认取网页中第一个img标签
+			sites             : ['qzone', 'qq', 'weibo', 'wechat'], // 启用的站点
+			disabled          : ['google', 'facebook', 'twitter'], // 禁用的站点
+			wechatQrcodeTitle : "微信扫一扫：分享", // 微信二维码提示文字
+			wechatQrcodeHelper: '<p>微信里点“发现”，扫一下二维码</p><p>便可将网页分享至朋友圈。</p>',
+			wechatQrcodeSize  : 100
+		};
 
-	$(".js_grid").each(function (i) {
+		$(".js_grid").each(function (i) {
+			$url = $(this).share_makeurl($(this).data("id"), data);
+			$(this).attr('href', $url);
+		});
 
-
-		$(this).data("id")
+		$().share_generateWechat($(".generate-wechat"), data);
 	});
 </script>
 
