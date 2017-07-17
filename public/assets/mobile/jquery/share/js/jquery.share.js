@@ -70,7 +70,7 @@
 	$.fn.share_createWechat = function ($container, $data) {
 		var $wechat = $container.find('a.icon-wechat');
 
-		share_generateWechat($wechat, data);
+		$().share_generateWechat($wechat, $data);
 	};
 
 	$.fn.share_generateWechat = function ($wechat, $data) {
@@ -83,6 +83,15 @@
 		if ($wechat.offset().top < 100) {
 			$wechat.find('.wechat-qrcode').addClass('bottom');
 		}
+	};
+
+	/**
+	 * Detect wechat browser.
+	 *
+	 * @return {Boolean}
+	 */
+	$.fn.runningInWeChat = function () {
+		return /MicroMessenger/i.test(navigator.userAgent);
 	};
 
 	/**
@@ -144,7 +153,7 @@
             var $container = $(this).addClass('share-component social-share');
 
             createIcons($container, $data);
-			share_createWechat($container, $data);
+			$().share_createWechat($container, $data);
 
             $(this).data('initialized', true);
         });
@@ -163,7 +172,7 @@
             if (!$sites.length) {return;}
 
             $.each($sites, function (i, $name) {
-                var $url  = share_makeurl($name, $data);
+                var $url  = $().share_makeurl($name, $data);
                 var $link = $data.initialized ? $container.find('.icon-'+$name) : $('<a class="social-share-icon icon-'+$name+'"></a>');
 
                 if (!$link.length) {
@@ -203,7 +212,7 @@
             if (typeof $sites == 'string') { $sites = $sites.split(/\s*,\s*/); }
             if (typeof $disabled == 'string') { $disabled = $disabled.split(/\s*,\s*/); }
 
-            if (runningInWeChat()) {
+            if ($().runningInWeChat()) {
                 $disabled.push('wechat');
             }
             // Remove elements
@@ -215,15 +224,6 @@
             });
 
             return $sites;
-        }
-
-        /**
-         * Detect wechat browser.
-         *
-         * @return {Boolean}
-         */
-        function runningInWeChat() {
-            return /MicroMessenger/i.test(navigator.userAgent);
         }
 
         /**
