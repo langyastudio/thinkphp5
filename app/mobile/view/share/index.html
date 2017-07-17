@@ -7,7 +7,7 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	<meta name='viewport' content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no'>
 
-	<!--微信APP分享的识别-->
+	<!--分享-->
 	<title>八年级数学课</title>
 
 	<link type="text/css" rel="stylesheet" href="/public/assets/mobile/normalize.css"/>
@@ -18,8 +18,8 @@
 	<script type="text/javascript" src="/public/assets/mobile/fastclick.js"></script>
 	<script type="text/javascript" src="/public/assets/mobile/jquery/jquery.weui/js/jquery-weui.min.js"></script>
 
-	<script src="/public/assets/mobile/jquery/jquery.share.js"></script>
-	<script src="/public/assets/mobile/jquery/jquery.qrcode.min.js"></script>
+	<script src="/public/assets/mobile/jquery/share/jquery.share.js"></script>
+	<script src="/public/assets/mobile/jquery/share/jquery.qrcode.min.js"></script>
 </head>
 
 <body>
@@ -97,18 +97,24 @@
 		var data = {
 			url               : location.href,
 			site_url          : location.origin,
-			source            : 'http://mooc.boolongo.com', // 来源（QQ空间会用到）, 默认读取head标签：<meta name="site" content="http://mooc.boolongo.com" />
-			title             : '八年级数学课', // 标题，默认读取 document.title 或者 <meta name="title" content="八年级数学课" />
-			description       : '这是一堂非常好的课程，讲的东西很好。这是一堂非常好的课程，讲的东西很好。这是一堂非常好的课程，讲的东西很好。这是一堂非常好的课程，讲的东西很好。这是一堂非常好的课程，讲的东西很好。', // 描述, 默认读取head标签：<meta name="description" content="PHP弱类型的实现原理分析" />
-			image             : 'http://192.168.1.100:8888/public/skins/bdshares/bd_qzone.png', // 图片, 默认取网页中第一个img标签
+			source            : location.origin, // 来源（QQ空间会用到）, 默认读取head标签：<meta name="site" content="http://mooc.boolongo.com" />
+			title             : document.title, // 标题，默认读取 document.title
+			description		  : '我正在观看【' + document.title + '】，很不错哦！快来一起学习吧！（分享自 @播谷网）',
+			summary       	  : '这是一堂非常好的课程，讲的东西很好。这是一堂非常好的课程，讲的东西很好。这是一堂非常好的课程，讲的东西很好。这是一堂非常好的课程，讲的东西很好。这是一堂非常好的课程，讲的东西很好。', // 描述, 默认读取head标签：<meta name="description" content="PHP弱类型的实现原理分析" />
+			image             : location.origin + '/public/skins/imgviews/tibet-1.jpg', // 图片, 默认取网页中第一个img标签
 			sites             : ['qzone', 'qq', 'weibo', 'wechat'], // 启用的站点
 			disabled          : ['google', 'facebook', 'twitter'], // 禁用的站点
-			wechatQrcodeTitle : "微信扫一扫：分享", // 微信二维码提示文字
-			wechatQrcodeHelper: '<p>微信里点“发现”，扫一下二维码</p><p>便可将网页分享至朋友圈。</p>',
+			wechatQrcodeTitle : "分享到微信朋友圈", // 微信二维码提示文字
+			wechatQrcodeHelper: '<p>打开微信，点击底部的“发现”，</p><p>使用“扫一扫”即可将网页分享至朋友圈。</p>',
 			wechatQrcodeSize  : 100
 		};
 
 		$(".js_grid").each(function (i) {
+			if($(this).data("id") == 'weibo')
+				data.title = data.description;
+			else
+				data.title = document.title;
+
 			$url = $(this).share_makeurl($(this).data("id"), data);
 			$(this).attr('href', $url);
 		});

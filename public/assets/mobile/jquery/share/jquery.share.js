@@ -20,8 +20,8 @@
 ;(function($){
 	//Hacfin
 	var $_share_templates = {
-		qzone       : 'http://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url={{URL}}&title={{TITLE}}&desc={{DESCRIPTION}}&summary={{SUMMARY}}&site={{SOURCE}}',
-		qq          : 'http://connect.qq.com/widget/shareqq/index.html?url={{URL}}&title={{TITLE}}&source={{SOURCE}}&desc={{DESCRIPTION}}&pics={{IMAGE}}',
+		qzone       : 'http://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url={{URL}}&title={{TITLE}}&desc={{DESCRIPTION}}&summary={{SUMMARY}}&site={{SOURCE}}&pics={{IMAGE}}',
+		qq          : 'http://connect.qq.com/widget/shareqq/index.html?url={{URL}}&title={{TITLE}}&source={{SOURCE}}&desc={{DESCRIPTION}}&summary={{SUMMARY}}&site={{SOURCE}}&pics={{IMAGE}}',
 		tencent     : 'http://share.v.t.qq.com/index.php?c=share&a=index&title={{TITLE}}&url={{URL}}&pic={{IMAGE}}',
 		weibo       : 'http://service.weibo.com/share/share.php?url={{URL}}&title={{TITLE}}&pic={{IMAGE}}&appkey={{WEIBOKEY}}',
 		wechat      : 'javascript:;',
@@ -44,7 +44,8 @@
 	 */
 	$.fn.share_makeurl = function ($name, $data) {
 		var $template = $_share_templates[$name];
-		$data['summary'] = $data['description'];
+		if($data['summary'] == undefined)
+			$data['summary'] = $data['description'];
 
 		for (var $key in $data) {
 			if ($data.hasOwnProperty($key)) {
@@ -94,42 +95,40 @@
     $.fn.share = function ($options) {
         var $head = $(document.head);
 
-        var $defaults = {
-            url: location.href,
-            site_url: location.origin,
-            source: $head.find('[name=site], [name=Site]').attr('content') || document.title,
-            title: $head.find('[name=title], [name=Title]').attr('content') || document.title,
-            description: $head.find('[name=description], [name=Description]').attr('content') || '',
-            image: $('img:first').prop('src') || '',
-            imageSelector: undefined,
+		var $defaults = {
+			url               : location.href,
+			site_url          : location.origin,
+			source            : $head.find('[name=site], [name=Site]').attr('content') || document.title,
+			title             : $head.find('[name=title], [name=Title]').attr('content') || document.title,
+			description       : $head.find('[name=description], [name=Description]').attr('content') || '',
+			image             : $('img:first').prop('src') || '',
+			imageSelector     : undefined,
+			weiboKey          : '',
+			wechatQrcodeTitle : '分享到微信朋友圈',
+			wechatQrcodeHelper: '<p>打开微信，点击底部的“发现”，</p><p>使用“扫一扫”即可将网页分享至朋友圈。</p>',
+			wechatQrcodeSize  : 100,
 
-            weiboKey: '',
-
-            wechatQrcodeTitle: '微信扫一扫：分享',
-            wechatQrcodeHelper: '<p>微信里点“发现”，扫一下</p><p>二维码便可将本文分享至朋友圈。</p>',
-            wechatQrcodeSize: 100,
-
-            mobileSites: [],
-            sites: ['weibo','qq','wechat','tencent','douban','qzone','linkedin','diandian','facebook','twitter','google'],
-            disabled: [],
-            initialized: false
-        };
+			mobileSites: [],
+			sites      : ['weibo', 'qq', 'wechat', 'tencent', 'douban', 'qzone', 'linkedin', 'diandian', 'facebook', 'twitter', 'google'],
+			disabled   : [],
+			initialized: false
+		};
 
         var $globals = $.extend({}, $defaults, $options);
 
-        var $ariaLabels = {
-            qzone: "QQ空间",
-            qq: "QQ",
-            tencent: "腾讯微博",
-            weibo: "微博",
-            wechat: "微信",
-            douban: "豆瓣",
-            diandian: "点点",
-            linkedin: "LinkedIn",
-            facebook: "Facebook",
-            twitter: "Twitter",
-            google: "Google"
-        };
+		var $ariaLabels = {
+			qzone   : "QQ空间",
+			qq      : "QQ",
+			tencent : "腾讯微博",
+			weibo   : "微博",
+			wechat  : "微信",
+			douban  : "豆瓣",
+			diandian: "点点",
+			linkedin: "LinkedIn",
+			facebook: "Facebook",
+			twitter : "Twitter",
+			google  : "Google"
+		};
 
         this.each(function() {
             if ($(this).data('initialized')) {
