@@ -99,7 +99,8 @@
 </div>
 
 <!--【PC】-->
-<div class="social-share"></div>
+<div class="share-bar">
+</div>
 
 <script>
 	$(function () {
@@ -115,12 +116,12 @@
 			sites             : ['weibo', 'wechat', 'qq', 'qzone'], // 启用的站点
 			disabled          : ['google', 'facebook', 'twitter'], // 禁用的站点
 			wechatQrcodeTitle : "分享到微信朋友圈", // 微信二维码提示文字
-			wechatQrcodeHelper: '<p>打开微信，点击底部的“发现”，</p><p>使用“扫一扫”即可将网页分享至朋友圈。</p>',
+			wechatQrcodeHelper: '<p>微信里点“发现”，扫一下</p><p>二维码便可将网页分享至朋友圈。</p>',
 			wechatQrcodeSize  : 100
 		};
 
 		//【2.0 PC】
-		$('.social-share').share(data);
+		$('.share-bar').share(data);
 
 		//【1.0 mobile】
 		$(".js_grid").each(function (i) {

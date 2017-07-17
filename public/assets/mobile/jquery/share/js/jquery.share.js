@@ -114,7 +114,7 @@
 			imageSelector     : undefined,
 			weiboKey          : '',
 			wechatQrcodeTitle : '分享到微信朋友圈',
-			wechatQrcodeHelper: '<p>打开微信，点击底部的“发现”，</p><p>使用“扫一扫”即可将网页分享至朋友圈。</p>',
+			wechatQrcodeHelper: '<p>微信里点“发现”，扫一下</p><p>二维码便可将网页分享至朋友圈。</p>',
 			wechatQrcodeSize  : 100,
 
 			mobileSites: [],
