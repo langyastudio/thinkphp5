@@ -8,6 +8,8 @@
 // +----------------------------------------------------------------------
 // | Author: 流年 <liu21st@gmail.com>
 // +----------------------------------------------------------------------
+use think\Config;
+use Wechat\Loader;
 
 /*
  * API返回的数据拼接成数据
@@ -113,4 +115,30 @@ function ismobile()
 	}
 
 	return false;
+}
+
+/**
+ * 获取微信操作对象
+ *
+ * 可以理解为单例-工厂模式
+ *
+ * @param string $type
+ *
+ * @return Wechat.$type
+ */
+function & load_wechat($type = '')
+{
+	static $wechat = array();
+	$index = md5(strtolower($type));
+
+	if (!isset($wechat[$index]))
+	{
+		//公众号配置文件
+		$options = Config::get('wechat');
+		$options['cachepath'] = CACHE_PATH . 'data/';
+
+		$wechat[$index] = &Loader::get($type, $options);
+	}
+
+	return $wechat[$index];
 }
