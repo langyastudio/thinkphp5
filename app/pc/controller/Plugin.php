@@ -97,4 +97,10 @@ class Plugin
 	{
 		return view('plugin/laypage');
 	}
+
+	public function UMeditor()
+    {
+        return view('plugin/umeditor');
+    }
+
 }
