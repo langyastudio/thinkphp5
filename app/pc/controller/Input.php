@@ -13,7 +13,7 @@ class Input
 
     public function UMeditor()
     {
-        return view('input/umeditor');
+        return view('input/ueditor');
     }
 
     public function Select2()
