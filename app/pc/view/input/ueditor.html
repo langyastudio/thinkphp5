@@ -33,10 +33,10 @@
     //1.0 实例化编辑器
     var _ue = UE.getEditor('myEditor', {
         // 服务器统一请求接口路径
-        // serverUrl: 'http://192.168.123.100:8888' + "/api/ueditor/operate"
-        serverUrl: 'http://192.168.123.3:8002' + "/api/home/ueditor/operate"
+        serverUrl: 'http://192.168.123.100:8888' + "/api/ueditor/operate"
+        //serverUrl: 'http://192.168.123.3:8002' + "/api/home/ueditor/operate" + "?ACCESS-TOKEN=" + '9af81892a05a2580e8a164cc72f81669'
         ,toolbars:[[
-            'paragraph', 'bold', 'italic', 'underline', 'blockquote', 'insertorderedlist', 'insertunorderedlist', 'insertcode', '|', 'link', 'unlink', 'horizontal', 'insertimage', '|', 'removeformat', 'undo', 'redo',  'fullscreen', 'formula'
+            'paragraph', 'bold', 'italic', 'underline', 'blockquote', 'insertorderedlist', 'insertunorderedlist', 'insertcode', '|', 'link', 'unlink', 'horizontal', 'simpleupload', 'insertimage', '|', 'removeformat', 'undo', 'redo',  'fullscreen', 'formula'
         ]]
         ,elementPathEnabled : false
     });
