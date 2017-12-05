@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta charset="UTF-8">
+
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name='viewport' content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no'>
+
+    <!--分享-->
+    <title>video</title>
+
+    <script type="text/javascript" src="/public/assets/mobile/jquery/jquery.min.js"></script>
+</head>
+
+<style>
+    /*video::-webkit-media-controls {*/
+        /*display : none !important;*/
+    /*}*/
+
+    video::-internal-media-controls-download-button {
+        display : none !important;
+    }
+
+    video::-webkit-media-controls-enclosure {
+        overflow : hidden !important;
+    }
+
+    video::-webkit-media-controls-panel {
+        width : calc(100% + 30px) !important; /* Adjust as needed */
+    }
+
+    .video-full {
+        width      : 100%;
+        height     : 100%;
+        background : #000;
+    }
+</style>
+
+<body>
+<div class="video-container">
+    <video class="video-full" preload="auto" autoplay="autoplay" controls controlsList="nodownload"
+           x-webkit-airplay="allow" webkit-playsinline="true" playsinline="true"
+           src="/public/res/ppt.mp4"></video>
+</div>
+
+<script>
+    $(function () {
+
+        $(".video-full").click(function() {
+            if (this.paused) {
+                this.play();
+            } else {
+                this.pause();
+            }
+        });
+    });
+</script>
+
+</body>
+
+</html>
