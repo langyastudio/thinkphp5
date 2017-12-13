@@ -28,22 +28,27 @@ function json_pre($code, $result = null, $msg = null, $count = null, $took = nul
 	{
 		$arr['msg'] = $msg;
 	}
+
 	else
 	{
 		$arr['msg'] = $E[$code];
 	}
+
 	if (isset($took))
 	{
 		$arr['took'] = $took;
 	}
+
 	if (isset($count))
 	{
 		$arr['count'] = $count;
 	}
+
 	if (isset($version))
 	{
 		$arr['version'] = $version;
 	}
+	
 	if (isset($result))
 	{
 		$arr['result'] = $result;
