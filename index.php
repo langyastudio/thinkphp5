@@ -3,8 +3,6 @@
 //严格模式 返回值要求是float，返回int就报错
 declare(strict_types=0);
 
-// [ 应用入口文件 ]
-
 // 定义应用目录
 define('APP_PATH', __DIR__ . '/app/');
 
