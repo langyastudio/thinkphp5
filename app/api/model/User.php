@@ -7,7 +7,11 @@ class User extends Model
 {
 //	protected $pk 		= 'id'; //默认主键为自动识别
 //	protected $table 	= 'ts_user'; // 模型类的命名规则是除去表前缀的数据表名称，采用驼峰法命名，并且首字母大写，可设置当前模型对应的完整数据表名称
-	protected $readonly = ['name','email']; //字段的值一旦写入，就无法更改
+
+	protected $readonly = ['username','email']; //字段的值一旦写入，就无法更改
+
+	//更新时间字段
+	protected $updateTime = false;
 
 	use SoftDelete;
 	protected $deleteTime = 'delete_time';
