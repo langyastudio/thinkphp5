@@ -10,18 +10,19 @@
 // +----------------------------------------------------------------------
 namespace think\queue\command;
 
-use think\Config;
+use Exception;
 use think\console\Command;
 use think\console\Input;
 use think\console\input\Option;
 use think\console\Output;
-use think\queue\Job;
-use think\queue\Worker;
-use Exception;
-use Throwable;
-use think\Cache;
 use think\exception\Handle;
 use think\exception\ThrowableError;
+use think\facade\Cache;
+use think\facade\Config;
+use think\facade\Hook;
+use think\queue\Job;
+use think\queue\Worker;
+use Throwable;
 
 class Work extends Command
 {
@@ -65,6 +66,7 @@ class Work extends Command
         $memory = $input->getOption('memory');
 
         if ($input->getOption('daemon')) {
+            Hook::listen('worker_daemon_start', $queue);
             $this->daemon(
                 $queue, $delay, $memory,
                 $input->getOption('sleep'), $input->getOption('tries')
@@ -107,7 +109,13 @@ class Work extends Command
                 $queue, $delay, $sleep, $maxTries
             );
 
-            if ($this->memoryExceeded($memory) || $this->queueShouldRestart($lastRestart)) {
+            if ($this->memoryExceeded($memory)) {
+                Hook::listen('worker_memory_exceeded', $queue);
+                $this->stop();
+            }
+
+            if ($this->queueShouldRestart($lastRestart)) {
+                Hook::listen('worker_queue_restart', $queue);
                 $this->stop();
             }
         }
