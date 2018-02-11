@@ -6,13 +6,14 @@
 // +----------------------------------------------------------------------
 // | Licensed ( http://www.apache.org/licenses/LICENSE-2.0 )
 // +----------------------------------------------------------------------
-// | Author: yunwuxin <448901948@qq.com>　
+// | Author: yunwuxin <448901948@qq.com>
 // +----------------------------------------------------------------------
 namespace think\migration;
 
 use InvalidArgumentException;
 use Phinx\Db\Adapter\AdapterFactory;
-use think\Config;
+use think\Db;
+use think\facade\Config;
 
 abstract class Command extends \think\console\Command
 {
@@ -42,8 +43,9 @@ abstract class Command extends \think\console\Command
      */
     protected function getDbConfig()
     {
-        $config = Config::get('database');
-        if ($config['deploy'] == 0) {
+        $config = Db::connect()->getConfig();
+
+        if (0 == $config['deploy']) {
             $dbConfig = [
                 'adapter'      => $config['type'],
                 'host'         => $config['hostname'],
@@ -52,7 +54,7 @@ abstract class Command extends \think\console\Command
                 'pass'         => $config['password'],
                 'port'         => $config['hostport'],
                 'charset'      => $config['charset'],
-                'table_prefix' => $config['prefix']
+                'table_prefix' => $config['prefix'],
             ];
         } else {
             $dbConfig = [
@@ -63,7 +65,7 @@ abstract class Command extends \think\console\Command
                 'pass'         => explode(',', $config['password'])[0],
                 'port'         => explode(',', $config['hostport'])[0],
                 'charset'      => explode(',', $config['charset'])[0],
-                'table_prefix' => explode(',', $config['prefix'])[0]
+                'table_prefix' => explode(',', $config['prefix'])[0],
             ];
         }
 
@@ -74,7 +76,7 @@ abstract class Command extends \think\console\Command
 
     protected function getConfig($name, $default = null)
     {
-        $config = Config::get('migration');
+        $config = Config::pull('migration');
         return isset($config[$name]) ? $config[$name] : $default;
     }
 
