@@ -2,7 +2,7 @@
 namespace app\pc\controller;
 
 use think\Controller;
-use think\Request;
+use think\facade\Request;
 
 /**
  * 【空控制器】

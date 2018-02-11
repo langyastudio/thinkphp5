@@ -1,7 +1,7 @@
 <?php
 namespace app\api\model;
 use think\Model;
-use traits\model\SoftDelete;
+use think\model\concern\SoftDelete;
 
 class User extends Model
 {

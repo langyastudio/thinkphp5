@@ -2,7 +2,7 @@
 namespace app\api\controller;
 
 use app\api\model\User;
-use think\Cache;
+use think\facade\Cache;
 use think\Controller;
 use think\Db;
 

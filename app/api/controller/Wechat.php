@@ -1,7 +1,7 @@
 <?php
 namespace app\api\controller;
 use think\Controller;
-use think\Request;
+use think\facade\Request;
 
 /*
  * 首先对进入微信网页的用户进入简单的网页授权，获取到用户的openid

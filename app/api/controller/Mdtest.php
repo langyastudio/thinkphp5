@@ -2,7 +2,7 @@
 namespace app\api\controller;
 use app\api\model\User;
 use think\Controller;
-use think\Debug;
+use think\facade\Debug;
 use think\Loader;
 
 /**

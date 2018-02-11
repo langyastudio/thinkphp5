@@ -12,18 +12,23 @@
 //严格模式 返回值要求是float，返回int就报错
 declare(strict_types=0);
 
+namespace think;
+
 // [ 应用入口文件 ]
 
 // 定义应用目录
 define('APP_PATH', __DIR__ . '/app/');
 
 // 定义配置文件目录和应用目录同级
-define('CONF_PATH', __DIR__.'/config/');
+define('CONF_PATH', __DIR__.'/config/extra/');
 
 // 引入自定义配置文件
-require  __DIR__ . '/config/basdefine.php';
+require CONF_PATH . 'basdefine.php';
 
-define('BIND_MODULE', 'server/Gatewayworker');
+// 加载基础文件
+require __DIR__ . '/thinkphp/base.php';
 
-// 加载框架引导文件
-require __DIR__ . '/thinkphp/start.php';
+// 支持事先使用静态方法设置Request对象和Config对象
+
+// 执行应用并响应
+Container::get('app')->path(APP_PATH)->bind('server/Gatewayworker')->run()->send();

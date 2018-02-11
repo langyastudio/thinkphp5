@@ -1,8 +1,7 @@
 <?php
 namespace app\pc\controller;
 use think\Controller;
-use think\Debug;
-use think\Request;
+use think\facade\Request;
 
 /**
  * Index
