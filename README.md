@@ -1,4 +1,4 @@
-﻿#一、技术构成
+﻿## 一、技术构成
 - Web框架：ThinkPHP 5.0    
 - 模版引擎：artTemplate(js)
 - UI：BootStrap
@@ -15,7 +15,7 @@
 > css采用预编译语言sass编写，由 "public/css/sass" 目录自动生成到 "public/css/css"目录。
 > **不可新增其他框架或同类插件，只可新增其他插件!**
 
-插件
+### 插件
 ---
 - IE8-兼容性：html5shiv + respond
 - 工具-汉字转拼音：jquery.Hz2Py
@@ -43,7 +43,7 @@
 - 表单-表情：memoji
 - 表单-日期：Bootstrap-datepicker + jquery.calendar
 
-#二、编码命名规范
+## 二、编码命名规范
 1. 英文命名，不可使用汉语拼音
 2. 所有的文件夹名，采用 **小写**
 3. 所有的文件名，采用 **小写**(以 .php 为后缀的除外)
@@ -56,7 +56,7 @@
 7. thinkphp、public/assets为第三方库，不可随意更改，保留源码本身的规范。
 > **如果有修改，需要在该文件中详细说明！**
 
-#三、修改说明
+## 三、修改说明
 ### public/assets/jwplayer
 ### public/assets/krpano
 ### public/assets/layer
